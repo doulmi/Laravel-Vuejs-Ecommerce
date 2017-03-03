@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('/{provider}/redirect', 'SocialAuthController@redirect')->name('redirect');
+Route::get('/{provider}/callback', 'SocialAuthController@callback')->name('callback');
+
 Route::get('/', function () {
     return view('welcome');
 });
