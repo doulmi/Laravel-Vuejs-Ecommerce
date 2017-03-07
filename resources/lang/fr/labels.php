@@ -32,5 +32,7 @@ return [
   'changeLang' => 'Change to english',
   'addToCart' => 'Ajouter au panier',
   'stockInfo' => 'pièce en stock',
+  'like' => 'Like',
+  'collect' => 'Collect',
 ];
 

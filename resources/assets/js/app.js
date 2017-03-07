@@ -34,11 +34,11 @@ $(document).scroll(() => {
   let minHeightToChangeLogo = 500;
 
   if (scrollTop < minHeightToChangeLogo) {
-    logo.animate({'margin-top': '0'}, 100);
-    goTop.animate({'margin-top': '36px'}, 100);
+    logo.animate({'margin-top': '0'}, 40);
+    goTop.animate({'margin-top': '36px'}, 40);
   } else {
-    logo.animate({'margin-top': '-48px'}, 100);
-    goTop.animate({'margin-top': '-40px'}, 100);
+    logo.animate({'margin-top': '-48px'}, 40);
+    goTop.animate({'margin-top': '-40px'}, 40);
   }
 });
 

@@ -30,5 +30,7 @@ return [
   ],
 
   'changeLang' => 'Change to french',
+  'like' => 'Like',
+  'collect' => 'Collect',
 ];
 

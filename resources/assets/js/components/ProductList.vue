@@ -1,13 +1,14 @@
 <template>
   <div>
     <div>
-      <div class="products row" id="products">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" v-for="product in products">
-          <a href="#" class="product">
+      <div class="products row" id="products" >
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" v-for="product in products" >
+          <a href="#" class="product" :id='product.id'>
             <div class="card-header">
               <div class="buy-button-container">
                 <a :href="getProductUrl(product.slug)" class="analytics-track-to-amazon card-buy-button">
-                  <i class="icon-check price-icon"></i>
+                  <i class="icon-check price-icon" v-if='product.stock > 0'></i>
+                  <i class="icon-ban" v-else></i>
                   <span class="price">
                     €{{product.price}}
                   </span>
@@ -50,6 +51,7 @@
         {{loadMoreText}}
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -150,6 +152,7 @@
       }
     }
   }
+
 
 
 

@@ -7904,19 +7904,6 @@ html, body, #app {
   margin-top: 20px;
 }
 
-.footer .contact .contact-icon {
-  opacity: 0.5;
-  font-size: 20px;
-  filter: alpha(opacity=50);
-  width: 30px;
-  cursor: pointer;
-}
-
-.footer .contact .contact-icon:hover {
-  opacity: 0.8;
-  filter: alpha(opacity=80);
-}
-
 .footer .contact .download-btn {
   width: 20px;
   margin-left: 2px;
@@ -7931,6 +7918,27 @@ html, body, #app {
     padding-left: 0;
     padding-top: 30px;
   }
+}
+
+.contact-icon {
+  opacity: 0.5;
+  font-size: 20px;
+  filter: alpha(opacity=50);
+  width: 32px;
+  color: #212121;
+  cursor: pointer;
+}
+
+.contact-icon:focus, .contact-icon.focus, .contact-icon:active:focus, .contact-icon:active.focus, .contact-icon.active:focus, .contact-icon.active.focus {
+  color: #212121;
+  text-decoration: none;
+}
+
+.contact-icon:hover {
+  opacity: 0.8;
+  color: #212121;
+  text-decoration: none;
+  filter: alpha(opacity=80);
 }
 
 .center-logo {
@@ -8139,13 +8147,27 @@ html, body, #app {
 }
 
 .icon {
-  opacity: 0.2;
+  opacity: 0.5;
   filter: alpha(opacity=20);
+  color: #212121;
+  cursor: pointer;
 }
 
 .icon:hover {
-  opacity: 0.5;
+  cursor: pointer;
+  opacity: 0.7;
+  text-decoration: none;
+  color: #212121;
   filter: alpha(opacity=50);
+}
+
+.icon span {
+  margin-left: 7px;
+  margin-right: 20px;
+  font-size: 18px;
+  text-transform: uppercase;
+  top: 3px;
+  position: relative;
 }
 
 .products {
@@ -8265,6 +8287,18 @@ html, body, #app {
 
 .products .product .icon-check {
   background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw%2FeHBhY2tldCBiZWdpbj0i77u%2FIiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8%2BIDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxMEMwOUI3REE0NzUxMUUyODU0N0Y0REQ2NDQ5RTc4MCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxMEMwOUI3RUE0NzUxMUUyODU0N0Y0REQ2NDQ5RTc4MCI%2BIDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjcyQTdBOEIwQTQ2ODExRTI4NTQ3RjRERDY0NDlFNzgwIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjEwQzA5QjdDQTQ3NTExRTI4NTQ3RjRERDY0NDlFNzgwIi8%2BIDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY%2BIDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8%2BXahBogAAAe1JREFUeNrs2jFOwzAUxvG6RUicoSsTE0dA7MwMSByuEgNSJ1YWjsABmFARR2Aq5qUEkVZN6iBsPz%2F%2FP8kqqoSov1%2FjJA7Oez8h%2BTKlAgAAIAAAQAAAgAAAAAEAAAIAAAQAAAgAABAAACAAAEAAAIAAAAABAAACAAAEABM5Sv0HnXPZJuu9P5WXc%2FkMy533OQISlf8k415%2BvmEJylP%2BvJ3zQgvCtLLyu%2FNWgeBSr38pzwE95XfzKeNaxpIjIH35Td5lPLME5Sn%2FTcaFHJEvAFRavjmA0so3BVBi%2BWYASi3fBEDJ5asAkAIvZRzXWH52gPZO9LG5ERqLYKH8n4kkHd3yZaz9bx5CEZryZaz8cFYtkroOtvrIAbCn%2FGCE%2Fy6%2FOoCB8g8ixCg%2FN4DGq6CrfecEM2u%2BhnNAwFGwdSTE%2BuZXew4YiXAWs%2FzcAFmfB7SXoYsDl8NrGbOYy061z4SltDt5uZ18Pxjpy8zUmq%2FtTjgQwWT5avaC%2FoBgonxVm3EjEMyUr243NADBVPkqt6MHEMyVrxKgB8Fk%2BWoBdhBerZa%2Fmaf2f8ySz3civ%2FMRezumGgBSyBIEAAEAAAIAAAQAAAgAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAgAABAAACAAAAACcqXAAMANjqgefDnxS4AAAAASUVORK5CYII%3D") no-repeat top left;
+  background-size: contain;
+}
+
+.products .product a .icon-ban {
+  color: #fff;
+  display: block;
+  float: left;
+  width: 28px;
+  margin: 12px 0 0 8px;
+  opacity: .7;
+  height: 24px;
+  background: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjRkZGRkZGIiBoZWlnaHQ9IjE4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPiAgICA8cGF0aCBkPSJNMTMgM2MtNC45NyAwLTkgNC4wMy05IDlIMWwzLjg5IDMuODkuMDcuMTRMOSAxMkg2YzAtMy44NyAzLjEzLTcgNy03czcgMy4xMyA3IDctMy4xMyA3LTcgN2MtMS45MyAwLTMuNjgtLjc5LTQuOTQtMi4wNmwtMS40MiAxLjQyQzguMjcgMTkuOTkgMTAuNTEgMjEgMTMgMjFjNC45NyAwIDktNC4wMyA5LTlzLTQuMDMtOS05LTl6bS0xIDV2NWw0LjI4IDIuNTQuNzItMS4yMS0zLjUtMi4wOFY4SDEyeiIvPjwvc3ZnPg==") no-repeat top left;
   background-size: contain;
 }
 
@@ -17007,6 +17041,8 @@ button.close {
   overflow-x: hidden;
   margin-top: 30px;
   padding-top: 80px;
+  box-shadow: 0px 13px 40px -24px rgba(0, 0, 0, 0.15);
+  padding-bottom: 30px;
 }
 
 .product-detail-page .Button-Container {
@@ -17019,17 +17055,15 @@ button.close {
   width: 100%;
   font-size: 0;
   position: relative;
-  box-shadow: 0px 13px 40px -24px rgba(0, 0, 0, 0.15);
 }
 
 .product-detail-page .product-image {
   width: 80%;
   margin-left: 20%;
-  margin-bottom: 20%;
 }
 
 .product-detail-page .product-image img {
-  width: 100%;
+  width: 50%;
 }
 
 .product-detail-page .product-info {
@@ -17121,6 +17155,10 @@ a.Button, .Button, input[type=submit] {
 
 a.Button:hover, .Button:hover, input[type=submit]:hover {
   box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.04), 0 0 0 0 rgba(0, 0, 0, 0.02), 0 2px 20px 1px rgba(0, 0, 0, 0.2);
+}
+
+.social-share {
+  margin-top: 4px;
 }
 
 /*# sourceMappingURL=app.css.map */
