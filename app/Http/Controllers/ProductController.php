@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -49,7 +50,12 @@ class ProductController extends Controller
       $product = Product::where('slug', $slug)->first();
 
       if($product) {
-        dd($product);
+        if(App::getLocale() == 'fr') {
+          $product->name = $product->name_fr;
+        } else {
+          $product->name = $product->name_en;
+        }
+        return view('products.show', compact('product'));
       }
 
       abort(404);

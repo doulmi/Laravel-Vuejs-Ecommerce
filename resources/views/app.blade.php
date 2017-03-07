@@ -9,7 +9,14 @@
   <meta name="query" content="{{Request::getQueryString()}}">
   <meta name="lang" content="{{App::getLocale()}}">
   <title>Sousoutake</title>
+  <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   @yield('othercss')
   <link rel="stylesheet" href="{{elixir('css/app.css')}}">
