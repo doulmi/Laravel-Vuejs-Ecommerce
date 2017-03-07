@@ -26,6 +26,9 @@ class CreateProductsTable extends Migration
       $table->boolean('on_sale');
       $table->integer('stock');
 
+      $table->string('images'); //split by ||
+      $table->string('avatar'); //main avatar
+
       $table->text('description');  //markdown
 
       $table->integer('view');

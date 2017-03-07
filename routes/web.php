@@ -5,15 +5,31 @@
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| This file is where you may define all of the routes that are handled
-| by your application. Just tell Laravel the URIs it should respond
-| to using a Closure or controller method. Build something great!
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
 Route::get('/{provider}/redirect', 'SocialAuthController@redirect')->name('redirect');
 Route::get('/{provider}/callback', 'SocialAuthController@callback')->name('callback');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PostController@index')->name('index');
+
+Route::get('lang/{lang}', 'LanguageController@switchLang')->name('lang.switch');
+
+Route::get('/explore/latest', 'PostController@latest')->name('index.latest');
+Route::get('/explore/popular', 'PostController@popular')->name('index.popular');
+Route::get('/products/{slug}', 'ProductController@show')->name('products.show');
+Route::get('/cart', 'CartController@index')->name('cart');
+
+Route::get('/shop', function () {
+  return 'shop';
+})->name('shop');
+
+Route::get('/{userId}/profile', 'UserController@profile')->name('profile');
+Route::get('/{userId}/likes', 'UserController@likes')->name('likes');
+Route::get('/{userId}/collections', 'UserController@collects')->name('collections');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
+Auth::routes();

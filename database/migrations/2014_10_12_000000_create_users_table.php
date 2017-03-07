@@ -18,14 +18,16 @@ class CreateUsersTable extends Migration
       $table->string('name');
       $table->string('email')->unique()->nullable();
       $table->string('password');
-      $table->string('addresse1');
-      $table->string('addresse2');
-      $table->integer('language_id')->unsigned();
-      $table->integer('currency_id')->unsigned();
-      
+      $table->string('avatar');
+
+      $table->boolean('isAdmin');
+
       $table->softDeletes();
       $table->rememberToken();
       $table->timestamps();
+
+      $table->boolean('confirmed');
+      $table->string('confirmation_code');
 
       //foreign keys
       $table->integer('language_id')->unsigned();

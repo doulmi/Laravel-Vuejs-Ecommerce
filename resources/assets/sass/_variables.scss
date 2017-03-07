@@ -1,0 +1,26 @@
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/nprogress/nprogress";
+
+$primaryColor: transparentize(#FFFFFF, 0.05);
+$secondaryColor: #2fdab8;
+$infoColor: #3398e1;
+$primaryTextColor: #999999;
+$secondaryTextColor: #4A4A4A;
+$darken: 10%;
+$lightGreen : #ebebeb;
+$bgColor: #F2F2F2;
+$beginnerColor: $secondaryColor;
+$intermediateColor: #E8C060;
+$advancedColor: #EA9078;
+$footHeight: 325px;
+$errorColor: #FF5E4D;
+$black : #212121;
+
+@mixin shareBtnStyle($color) {
+  background: $color;
+
+  &:hover {
+    background: darken($color, $darken);
+  }
+}

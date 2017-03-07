@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+
+Route::group(['namespace' => 'API'], function () {
+  Route::get('/products/{order}/{limit}/{page}', 'ProductController@index');
+});
