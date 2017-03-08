@@ -17038,11 +17038,11 @@ button.close {
 .product-detail-page {
   position: relative;
   background-color: white;
-  overflow-x: hidden;
   margin-top: 30px;
   padding-top: 80px;
   box-shadow: 0px 13px 40px -24px rgba(0, 0, 0, 0.15);
   padding-bottom: 30px;
+  margin-bottom: 60px;
 }
 
 .product-detail-page .Button-Container {
@@ -17054,16 +17054,24 @@ button.close {
 .product-detail-page .product-header {
   width: 100%;
   font-size: 0;
+  height: 530px;
   position: relative;
+  box-shadow: 0px 13px 40px -24px rgba(0, 0, 0, 0.15);
+}
+
+.product-detail-page .productInfo {
+  height: 450px;
 }
 
 .product-detail-page .product-image {
   width: 80%;
-  margin-left: 20%;
+  margin-left: 18%;
 }
 
 .product-detail-page .product-image img {
-  width: 50%;
+  margin-left: 18%;
+  height: 400px;
+  position: absolute;
 }
 
 .product-detail-page .product-info {
@@ -17121,6 +17129,31 @@ button.close {
   transition-timing-function: ease-in-out;
 }
 
+.product-detail-page .Relative-container {
+  margin-top: 60px;
+}
+
+.product-detail-page .Relative-container .Relative-Title {
+  text-transform: uppercase;
+  text-align: center;
+  display: block;
+  padding: 0 0 48px;
+  font-size: 18px;
+  font-weight: 700;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 3px;
+  color: #525252;
+}
+
+.product-detail-page .Relative-products {
+  min-height: 250px;
+  width: 90%;
+  border-top: 2px solid whitesmoke;
+  left: 5%;
+  position: relative;
+}
+
 a.Button, .Button, input[type=submit] {
   background-color: #2fdab8;
   border: none;
@@ -17159,6 +17192,95 @@ a.Button:hover, .Button:hover, input[type=submit]:hover {
 
 .social-share {
   margin-top: 4px;
+}
+
+.clearfix {
+  overflow: auto;
+  zoom: 1;
+}
+
+.ProductPivot {
+  height: 240px;
+}
+
+.hover-overlay-light:hover:before {
+  opacity: 1;
+}
+
+.hover-overlay-light:before {
+  -webkit-transform: none;
+  transform: none;
+  content: "";
+  display: block;
+  height: 100%;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.ProductPivot-product {
+  text-decoration: none;
+  font-size: 0;
+  box-sizing: border-box;
+}
+
+.ProductPivot-product .product-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  bottom: 0;
+  font-size: 0;
+  height: 200px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  -moz-transform: rotate(0.01deg);
+  -webkit-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+  margin: 20px;
+}
+
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+  position: relative;
+  min-height: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.col-xs-5ths {
+  width: 20%;
+  float: left;
+}
+
+@media (min-width: 768px) {
+  .col-sm-5ths {
+    width: 20%;
+    float: left;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-md-5ths {
+    width: 20%;
+    float: left;
+  }
+}
+
+@media (min-width: 1200px) {
+  .col-lg-5ths {
+    width: 20%;
+    float: left;
+  }
 }
 
 /*# sourceMappingURL=app.css.map */

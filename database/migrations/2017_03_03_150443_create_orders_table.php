@@ -19,8 +19,6 @@ class CreateOrdersTable extends Migration
       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
       $table->string('address');
-      $table->string('delivery_id');
-
       $table->string('state');  //wait_delivery, canceled, delivered
       $table->timestamps();
     });

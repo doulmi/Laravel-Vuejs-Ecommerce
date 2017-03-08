@@ -34,5 +34,6 @@ return [
   'stockInfo' => 'pièce en stock',
   'like' => 'Like',
   'collect' => 'Collect',
+  'related' => 'dérivés',
 ];
 

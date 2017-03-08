@@ -17,4 +17,11 @@ class Product extends Model
   {
     return $this->hasMany(ProductRelative::class, 'product_id', 'id');
   }
+
+  public function buyers() {
+    return User::join('orders', 'orders.user_id', '=', 'users.id')
+      ->join('order_items', 'order_items.order_id', '=', 'orders.id')
+      ->join('products', 'products.id', '=', 'order_items.product_id')
+      ->where('products.id', $this->id);
+  }
 }

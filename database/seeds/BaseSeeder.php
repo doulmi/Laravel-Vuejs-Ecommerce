@@ -11,13 +11,6 @@ class BaseSeeder extends Seeder
    */
   public function run()
   {
-    //currency
-    \App\Currency::create(['symbol' => '$', 'slug' => 'dollar']);
-    \App\Currency::create(['symbol' => '€', 'slug' => 'euro']);
-    \App\Currency::create(['symbol' => '£', 'slug' => 'pound']);
 
-    //language
-    \App\Language::create(['slug' => 'Français']);
-    \App\Language::create(['slug' => 'English']);
   }
 }

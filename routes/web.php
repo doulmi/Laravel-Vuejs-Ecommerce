@@ -30,6 +30,11 @@ Route::get('/shop', function () {
 Route::get('/{userId}/profile', 'UserController@profile')->name('profile');
 Route::get('/{userId}/likes', 'UserController@likes')->name('likes');
 Route::get('/{userId}/collections', 'UserController@collects')->name('collections');
-Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Auth::routes();
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function() {
+  Route::get('/', 'AdminController@index')->name('admin.index');
+});
+
