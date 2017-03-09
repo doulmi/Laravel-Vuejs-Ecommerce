@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-  <div class="container product-detail-page">
+  <div class="container product-detail-page" id="container">
     {{-- product info part --}}
     <div class="product-header">
       <div class="row productInfo">
@@ -33,15 +33,14 @@
       {{-- actions and buyer --}}
       <div class="row">
         <div class="col-md-6 text-center">
-      <span href="" class="icon">
-        <img src="{{asset('images/heart.png')}}" alt="">
-        <span>@lang('labels.like')</span>
-      </span>
-
-          <span href="" class="icon">
-        <img src="{{asset('images/collect.png')}}" alt="">
-        <span>@lang('labels.collect')</span>
-      </span>
+          <a class="icon" @click="like('{{$product->id}}')">
+            <img src="{{asset('images/heart.png')}}" alt="">
+            <span>@lang('labels.like')</span>
+          </a>
+          <a class="icon">
+            <img src="{{asset('images/collect.png')}}" alt="">
+            <span>@lang('labels.collect')</span>
+          </a>
         </div>
 
         <div class="col-md-6 social-share">
@@ -88,4 +87,18 @@
       {{-- Should login to leave a comment --}}
     @endif
   </div>
+@endsection
+
+@section('otherjs')
+  <script>
+    new Vue({
+      el: '#container',
+
+      methods: {
+        like: function(id) {
+          console.log(id);
+        }
+      }
+    })
+  </script>
 @endsection

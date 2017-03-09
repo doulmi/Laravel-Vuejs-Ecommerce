@@ -409,7 +409,7 @@ html, body, #app {
 }
 
 .icon {
-  opacity: 0.5;
+  opacity: 0.3;
   filter: alpha(opacity=20); //IE8
   color: $black;
   cursor: pointer;
@@ -427,7 +427,7 @@ html, body, #app {
     margin-right: 20px;
     font-size: 18px;
     text-transform: uppercase;
-    top: 3px;
+    top: 7px;
     position: relative;
   }
 }
@@ -1834,7 +1834,7 @@ a.Button, .Button, input[type=submit] {
 }
 
 .social-share {
-  margin-top: 4px;
+  margin-top: 8px;
 }
 
 .clearfix {

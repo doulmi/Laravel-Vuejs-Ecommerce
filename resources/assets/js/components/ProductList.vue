@@ -35,7 +35,6 @@
                   <img class="icon"
                        src="../../img/collect.png"
                        alt="Collect">
-                  <span class="collect">{{product.collects ? product.collects : 0}}</span>
                 </i>
               </div>
             </div>

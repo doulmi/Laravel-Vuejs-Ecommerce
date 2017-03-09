@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App;
+use App\CollectProduct;
+use App\Like;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -31,10 +33,12 @@ class ProductController extends Controller
 
     //with buyer, likes and collects
     $products = $query
-//      ->select(['products.*', DB::raw('(select count(id) from likes where product_id = products.id) as likesCount'), DB::raw('(select count(id) from collect_products where collect_products.product_id = products.id) as collectsCount')])
       ->paginate($limit, ['*'], 'page', $page);
 
-    dd($products);
+    foreach($products as $product) {
+      $product->likes = Like::where('product_id', $product->id)->count();
+      $product->users = $product->buyers()->orderBy('orders.id')->limit(5)->get(['users.id', 'users.avatar']);
+    }
     return $products;
   }
 
