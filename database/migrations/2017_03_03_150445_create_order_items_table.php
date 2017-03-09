@@ -26,6 +26,7 @@ class CreateOrderItemsTable extends Migration
 
       $table->integer('quantity');
       $table->float('unitPrice');
+      $table->float('totalPrice');
 
       $table->timestamps();
     });
