@@ -46,6 +46,9 @@ class LoginController extends Controller
 
   protected function authenticated(Request $request, $user)
   {
+    //move all productIds from sessions to database
+
+
     return redirect(Session::get('prevUrl', '/'));
   }
 }

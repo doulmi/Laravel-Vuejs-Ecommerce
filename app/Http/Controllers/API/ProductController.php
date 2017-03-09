@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App;
+use App\Comment;
 use App\Product;
+use App\ProductRelative;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -38,8 +40,36 @@ class ProductController extends Controller
     return $products;
   }
 
-  public function show($slug)
+  public function show($id)
   {
+    $product = Product::findOrFail($id);
 
+    if (App::getLocale() == 'fr') {
+      $product->name = $product->name_fr;
+    } else {
+      $product->name = $product->name_en;
+    }
+
+    //get first 5 buyers of this products
+    $product->users = $product->buyers()->orderBy('orders.id')->limit(5)->get(['users.id', 'users.avatar']);
+    $product->relativeProduct = ProductRelative::with('relativeProduct')->where('product_id', $product->id)->get();
+
+    return $product;
+  }
+
+  public function comment(Request $request)
+  {
+    $success = Comment::create([
+      'user_id' => $request->userId,
+      'product_id' => $request->productId,
+      'content' => $request->content,
+    ]);
+    if(!$success) {
+      return response()->json(['error' => 'database_error'], 412);
+    }
+  }
+
+  public function comments($productId, $limit, $page) {
+    return Comment::with('user')->where('product_id', $productId)->paginate($limit, ['*'], 'page', $page);
   }
 }

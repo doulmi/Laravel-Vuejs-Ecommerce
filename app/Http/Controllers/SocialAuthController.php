@@ -7,9 +7,25 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Contracts\User as ProviderUser;
 use Laravel\Socialite\Facades\Socialite;
+use Redirect;
+use Session;
 
 class SocialAuthController extends Controller
 {
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    $this->middleware('guest', ['except' => 'logout']);
+    $prevUrl = Redirect::getUrlGenerator()->previous();
+    if (!str_contains($prevUrl, ['login', 'register'])) {
+      Session::set('prevUrl', $prevUrl);
+    }
+  }
+
   public function redirect($provider)
   {
     return Socialite::driver($provider)->redirect();
@@ -19,7 +35,7 @@ class SocialAuthController extends Controller
   {
     $user = $this->createOrGetUser(Socialite::driver($provider)->user(), $provider);
     Auth::login($user);
-    return redirect()->to('/home');
+    return redirect(Session::get('prevUrl', '/'));
   }
 
   private function createOrGetUser(ProviderUser $providerUser, $provider)
