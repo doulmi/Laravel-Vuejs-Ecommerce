@@ -1,4 +1,6 @@
 <div>
+  @include('components.RegisterDialog')
+  @include('components.LoginDialog')
   <nav class="navbar navbar-default navbar-guest navbar-fixed-top" id='navbar' role="navigation">
     <div class="center-logo">
       <img id='logo' src="{{asset('images/logo-32x32.png')}}" data-toggle="tooltip"
@@ -54,9 +56,9 @@
             </li>
 
             <li class="dropdown profile-btn ">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+              <a href="#" class="avatar" data-toggle="dropdown" role="button" aria-haspopup="true"
                  aria-expanded="true">
-                <img class='avatar avatar-small' src="{{Auth::user()->avatar}}"/>
+                <img class='avatar avatar-small hover-overlay' src="{{Auth::user()->avatar}}"/>
               </a>
 
               <ul class="dropdown-menu" role="menu">
@@ -91,11 +93,6 @@
                     @lang('labels.logout')
                   </a>
                 </li>
-
-                <li>
-                  <a href="{{route('cart')}}">
-                  </a>
-                </li>
               </ul>
             </li>
           @else
@@ -103,18 +100,13 @@
               <a class="login-btn" href="{{url('login')}}">@lang('labels.login')</a>
             </li>
             <li>
-              <a class="register-btn" href="{{url('register')}}">@lang('labels.register')</a>
-            </li>
-            <li>
-              <a href="{{route('lang.switch', App::getLocale() == 'fr' ? 'en' : 'fr')}}" title="@lang('labels.changeLang')">
-                @if(App::getLocale() == 'fr')
-                  <i class="flag-svg-micro flag-en"></i>
-                @else
-                  <i class="flag-svg-micro flag-fr"></i>
-                @endif
-              </a>
+              <a class="register-btn pointer" data-toggle="modal" type="button"
+                 data-target="#registerModal">@lang('labels.register')</a>
             </li>
           @endif
+          <li>
+            <a class="panier-btn pointer">0</a>
+          </li>
         </ul>
       </div>
     </div>

@@ -15,13 +15,17 @@
           <span class="contact-icon fa fa-pinterest"></span>
           <span class="contact-icon fa fa-twitter"></span>
           <span class="contact-icon fa fa-google"></span>
-          <span class="contact-icon fa fa-instagram"></span>
         </div>
       </div>
 
-      <div class="col-md-5 download clearfix col-sm-5">
-        <div>
-        </div>
+      <div class="col-md-5 download col-sm-5">
+        <span class="text">@lang('labels.language'):</span>
+        <a href="{{route('lang.switch', 'fr')}}" title="@lang('labels.changeToFrench')">
+          Français
+        </a>
+        <a href="{{route('lang.switch', 'en')}}" title="@lang('labels.changeToEnglish')">
+          English
+        </a>
       </div>
     </div>
   </div>

@@ -8,6 +8,7 @@ use App\Like;
 use App\Comment;
 use App\Product;
 use App\ProductRelative;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,7 @@ use Session;
 
 class ProductController extends Controller
 {
-  public function index(Request $request, $order, $limit, $page)
+  public function index(Request $request, $order, $limit, $page, $userId = -1)
   {
     $query = Product::query();
 
@@ -37,10 +38,16 @@ class ProductController extends Controller
     $products = $query
       ->paginate($limit, ['*'], 'page', $page);
 
-    foreach($products as $product) {
+    foreach ($products as $product) {
       $product->likes = Like::where('product_id', $product->id)->count();
+      if($userId > 0) {
+        $product->myLike = Like::where('product_id', $product->id)->where('user_id', $userId)->count() > 0 ? 1 : 0;
+      } else {
+        $product->myLike = 0;
+      }
       $product->users = $product->buyers()->orderBy('orders.id')->limit(5)->get(['users.id', 'users.avatar']);
     }
+
     return $products;
   }
 
@@ -68,12 +75,13 @@ class ProductController extends Controller
       'product_id' => $request->get('productId'),
       'content' => $request->get('content'),
     ]);
-    if(!$success) {
+    if (!$success) {
       return response()->json(['error' => 'database_error'], 412);
     }
   }
 
-  public function comments($productId, $limit, $page) {
+  public function comments($productId, $limit, $page)
+  {
     return Comment::with('user')->where('product_id', $productId)->paginate($limit, ['*'], 'page', $page);
   }
 }

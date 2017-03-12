@@ -14,13 +14,14 @@ class CreateCollectProductsTable extends Migration
   public function up()
   {
     Schema::create('collect_products', function (Blueprint $table) {
+      $table->increments('id');
       $table->integer('product_id')->unsigned();
       $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
       $table->integer('collect_id')->unsigned();
       $table->foreign('collect_id')->references('id')->on('collects')->onDelete('cascade');
 
-      $table->primary(['collect_id', 'product_id']);
+      $table->unique(['collect_id', 'product_id']);
       $table->timestamps();
     });
   }

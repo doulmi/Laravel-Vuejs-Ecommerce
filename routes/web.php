@@ -31,6 +31,10 @@ Route::get('/{userId}/profile', 'UserController@profile')->name('profile');
 Route::get('/{userId}/likes', 'UserController@likes')->name('likes');
 Route::get('/{userId}/collections', 'UserController@collects')->name('collections');
 
+Route::group(['middleware' => 'auth'], function() {
+  Route::post('/likes/{productId}', 'UserController@like')->name('actions.like');
+});
+
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 

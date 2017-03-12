@@ -14,13 +14,14 @@ class CreateGiftProductsTable extends Migration
   public function up()
   {
     Schema::create('gift_products', function (Blueprint $table) {
+      $table->increments('id');
       $table->integer('gift_id')->unsigned();
       $table->foreign('gift_id')->references('id')->on('gifts')->onDelete('cascade');
 
       $table->integer('product_id')->unsigned();
       $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
-      $table->primary(['gift_id', 'product_id']);
+      $table->unique(['gift_id', 'product_id']);
       $table->timestamps();
     });
   }

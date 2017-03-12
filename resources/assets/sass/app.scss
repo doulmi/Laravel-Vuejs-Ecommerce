@@ -39,14 +39,13 @@ button, a {
 }
 
 * {
-  font-family:
-          //'Lato',
-          //'Josefin Slab',
-          //"Open+Sans",
-          //"PT Sans",
-          //"Droid Sans",
-          "Arial",
-          "Roboto", "Times New Roman", sans-serif;
+  font-family: //'Lato',
+    //'Josefin Slab',
+    //"Open+Sans",
+    //"PT Sans",
+    //"Droid Sans",
+    "Arial",
+    "Roboto", "Times New Roman", sans-serif;
   line-height: 1.7em;
   outline: none;
   border: none;
@@ -127,16 +126,24 @@ html, body, #app {
   }
 
   .download {
-    text-align: center;
     text-decoration: none;
     height: $footHeight - 150px; //150 = margin-top + margin-bottom
     border-left: 2px solid #f2f2f2;
     padding-left: 48px;
     color: $primaryTextColor;
-    font-size: 20px;
+    font-size: 18px;
 
     .text {
-      margin-top: 50px;
+      color: $secondaryTextColor;
+    }
+
+    a {
+      color: $primaryTextColor;
+      margin: 0 5px;
+
+      &:hover {
+        color: $secondaryTextColor;
+      }
     }
   }
 
@@ -161,7 +168,6 @@ html, body, #app {
     }
   }
 }
-
 
 .contact-icon {
   opacity: 0.5;
@@ -221,9 +227,8 @@ html, body, #app {
 
 .avatar-small {
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  border: 2px solid $lightGreen;
+  width: 30px;
+  height: 30px;
 }
 
 .avatar.rotate {
@@ -342,6 +347,10 @@ html, body, #app {
   &:hover {
     color: $secondaryTextColor;
   }
+
+  &.avatar {
+    padding: 15px 0;
+  }
 }
 
 .navbar-default > li > a.login-btn {
@@ -358,6 +367,21 @@ html, body, #app {
 
   &:hover {
     background: darken($secondaryColor, $darken);
+    color: $primaryColor;
+  }
+}
+
+.navbar-default .navbar-nav > li > a.panier-btn {
+  background: #A6A6A6;
+  color: rgba(255, 255, 255, 0.95);
+  padding: 5px 11px;
+  margin-top: 10px;
+  border-radius: 50%;
+  font-size: 12px;
+  margin-left: 10px;
+
+  &:hover {
+    background: darken(#A6A6A6, $darken);
     color: $primaryColor;
   }
 }
@@ -412,7 +436,12 @@ html, body, #app {
   opacity: 0.3;
   filter: alpha(opacity=20); //IE8
   color: $black;
+  font-size: 20px;
   cursor: pointer;
+
+  &.like.active {
+    color: $errorColor;
+  }
 
   &:hover {
     cursor: pointer;
@@ -423,11 +452,10 @@ html, body, #app {
   }
 
   span {
+    font-size: 18px;
     margin-left: 7px;
     margin-right: 20px;
-    font-size: 18px;
     text-transform: uppercase;
-    top: 7px;
     position: relative;
   }
 }
@@ -1406,6 +1434,15 @@ h2.title {
     line-height: 58px;
   }
 
+  h3.title {
+    color: #525252;
+    text-align: center;
+    margin-bottom: 20px;
+    border: 0;
+    font-size: 30px;
+    line-height: 58px;
+  }
+
   .hr {
     margin-top: 0;
   }
@@ -1540,7 +1577,12 @@ h2.title {
       background-color: darken(#3b5897, 10%);
     }
   }
-
+  &.email {
+    background-color: grey;
+    &:hover {
+      background-color: darken(grey, 10%);
+    }
+  }
   &.pinterest {
     background-color: #bd081c;
 
@@ -1694,10 +1736,9 @@ h2.title {
 
   .product-header {
     width: 100%;
-    font-size: 0;
     height: 530px;
     position: relative;
-    box-shadow: 0px 13px 40px -24px rgba(0,0,0,0.15);
+    box-shadow: 0px 13px 40px -24px rgba(0, 0, 0, 0.15);
   }
 
   .productInfo {
@@ -1739,6 +1780,18 @@ h2.title {
     letter-spacing: 2px;
     margin-top: 12px;
     font-size: 16px;
+  }
+
+  .ProductInfo-quantity {
+    font-size: 16px;
+    width: 70px;
+    padding: 19px 10px;
+    border: 1px solid whitesmoke;
+  }
+
+  .Buy-btn {
+    position: relative;
+    left: -40px;
   }
 
   .ProductInfo-title {
@@ -1847,11 +1900,11 @@ a.Button, .Button, input[type=submit] {
 
 }
 
-.hover-overlay-light:hover:before {
+.hover-overlay:hover:before, .hover-overlay-light:hover:before {
   opacity: 1;
 }
 
-.hover-overlay-light:before {
+.hover-overlay:before, .hover-overlay-light:before {
   -webkit-transform: none;
   transform: none;
   content: "";
@@ -1865,23 +1918,19 @@ a.Button, .Button, input[type=submit] {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
-
 
 .ProductPivot-product {
   text-decoration: none;
-  font-size: 0;
   box-sizing: border-box;
-
-
+  font-size: 0;
 
   .product-image {
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     bottom: 0;
-    font-size: 0;
     height: 200px;
     left: 0;
     position: absolute;
@@ -1891,7 +1940,6 @@ a.Button, .Button, input[type=submit] {
     -webkit-transition: opacity 0.2s ease-in-out;
     transition: opacity 0.2s ease-in-out;
     margin: 20px;
-
 
   }
 }
@@ -1930,4 +1978,54 @@ a.Button, .Button, input[type=submit] {
     width: 20%;
     float: left;
   }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+button.close {
+  right: 20px;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  position: absolute;
+  -webkit-appearance: none;
+  top: 10px;
+  font-size: 40px;
+}
+
+.Quantity-btn {
+  width: 20px;
+  text-align: center;
+  height: 32px;
+  position: relative;
+  line-height: 22px;
+  background: $primaryColor;
+  color: #666;
+  border: 1px solid whitesmoke;
+
+  &:hover {
+    background: whitesmoke;
+  }
+
+  &.increment {
+    left: -24px;
+    top: -16px;
+  }
+
+  &.decrement {
+    left: -48px;
+    top: 15px;
+  }
+}
+
+.modal-10-container {
+  margin: 15% auto 0 auto;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  opacity: 0.8;
+  background:none;
 }

@@ -2,15 +2,15 @@
 
 @section('content')
   <div class="container">
-    <div class="login-modal" id="login-modal">
+    <div class="login-modal" id="login-modaregisterl">
       <div class="modal-dialog modal-lg login-modal-dialog ">
         <div class="modal-content paper">
           <div class="loginmodal-container">
             <div class="login-dialog">
               <h2 class="title">@lang('labels.welcome')</h2>
               <div>
-                <a class="login-btn pinterest" href="{{route('redirect', 'pinterest')}}">@lang('labels.useInterestConnect')<i class="fa fa-pinterest-p"></i></a>
                 <a class="login-btn facebook" href="{{route('redirect', 'facebook')}}">@lang('labels.useFacebookConnect')<i class="fa fa-facebook"></i></a>
+                <a class="login-btn twitter" href="{{route('redirect', 'twitter')}}">@lang('labels.useTwitterConnect')<i class="fa fa-twitter"></i></a>
               </div>
               <hr class="hr"/>
               <div class="text-or">@lang('labels.useEmailConnect')</div>
@@ -48,7 +48,8 @@
 @endsection
 
 
-@section('otherjs')
+@section('js')
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
   <script>
     new Vue({
       el: '#app',

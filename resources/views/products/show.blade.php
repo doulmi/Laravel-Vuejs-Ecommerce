@@ -1,7 +1,8 @@
 @extends('app')
 
 @section('content')
-  <div class="container product-detail-page" id="container">
+  <input type="hidden" id="likeUrl" value="{{route('actions.like', ['productId' => $product->id])}}">
+  <div class="container product-detail-page" id="ProductInfo">
     {{-- product info part --}}
     <div class="product-header">
       <div class="row productInfo">
@@ -19,8 +20,15 @@
           <div class="ProductInfo-stock"><span>{{$product->stock}}</span> @lang('labels.stockInfo')</div>
           <div class="Button-Container">
             <div class="ProductInfo-price price">€{{$product->price}}</div>
-            <a class="Button">@lang('labels.addToCart')</a>
+            <div>
+              <input type="text" class="ProductInfo-quantity" id="quantity" v-model="quantity" name="quantity"
+                     data-max="{{$product->stock}}"/>
+              <button class="Quantity-btn increment" id="increment" @click.stop.prevent="increment">+</button>
+              <button class="Quantity-btn decrement" id="decrement" @click.stop.prevent="decrement">-</button>
+              <a class="Button Buy-btn">@lang('labels.addToCart')</a>
+            </div>
           </div>
+
 
           <div class="Buyers">
             @foreach($buyers as $buyer)
@@ -33,14 +41,24 @@
       {{-- actions and buyer --}}
       <div class="row">
         <div class="col-md-6 text-center">
-          <a class="icon" @click="like('{{$product->id}}')">
-            <img src="{{asset('images/heart.png')}}" alt="">
-            <span>@lang('labels.like')</span>
-          </a>
-          <a class="icon">
-            <img src="{{asset('images/collect.png')}}" alt="">
+          <span href="#" class="icon like" @click.stop.prevent="like" :class="{active : liked }">
+            <i class="fa fa-heart" aria-hidden="true"></i>
+            <span>@{{ liked ? "@lang('labels.liked')" : "@lang('labels.like')" }}</span>
+            <input type="hidden" id="like" value="{{$product->like}}">
+          </span>
+
+          <span href="#" class="icon collect" @click.stop.prevent="collect" :class="{active : collected}">
+            <img src="{{asset('images/collect.png')}}">
             <span>@lang('labels.collect')</span>
-          </a>
+          </span>
+          {{--<a class="icon" id="likeBtn" @click.stop.prevent="like">--}}
+          {{--<img src="{{asset('images/heart.png')}}" alt="">--}}
+          {{--<span>@lang('labels.like')</span>--}}
+          {{--</a>--}}
+          {{--<a class="icon" id="collectBtn" @click.stop.prevent="collect" >--}}
+          {{-- alt="">--}}
+          {{--<span>@lang('labels.collect')</span>--}}
+          {{--</a>--}}
         </div>
 
         <div class="col-md-6 social-share">
@@ -89,16 +107,89 @@
   </div>
 @endsection
 
-@section('otherjs')
+@section('js')
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+          integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+          crossorigin="anonymous"></script>
   <script>
+    var quantity = $('#quantity');
+    var stock = quantity.data('max');
     new Vue({
-      el: '#container',
+      el: 'body',
+      data: {
+        liked: ($('#like').val() == '1') ? true : false,
+        quantity: 1,
+        auth: $('meta[name=auth]').attr('content'),
+      },
 
       methods: {
-        like: function(id) {
-          console.log(id);
+        like: function () {
+          var likeUrl = $('#likeUrl').val();
+
+          if (this.auth > 1) {
+            var token = $('meta[name=token]').attr("content");
+            this.liked = !this.liked;
+            $.post(likeUrl, {_token: token}, function (data) {
+              //success
+            }.bind(this)).fail(function () {
+              this.liked = !this.liked;
+              console.log('liked failed');
+            }.bind(this));
+          } else {
+            $('#loginModal').modal();
+          }
+        },
+
+        collect: function () {
+
+        },
+
+        increment: function () {
+          var num = parseInt(this.quantity) + 1;
+          if (num <= stock) {
+            this.quantity = num;
+          }
+        },
+
+        decrement: function () {
+          var num = parseInt(this.quantity) - 1;
+          if (num > 0) {
+            this.quantity = num;
+          }
+        },
+
+        addToPanier: function () {
+
         }
       }
-    })
+    });
+
+    $(function () {
+      quantity.keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+          // Allow: Ctrl+A, Command+A
+          (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+          // Allow: home, end, left, right, down, up
+          (e.keyCode >= 35 && e.keyCode <= 40)) {
+          // let it happen, don't do anything
+          return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+          e.preventDefault();
+        }
+      });
+
+      quantity.change(function () {
+        var num = parseInt(quantity.val());
+        if (num < 1) {
+          quantity.val(1);
+        } else if (num > stock) {
+          quantity.val(stock);
+        }
+      });
+    });
   </script>
 @endsection

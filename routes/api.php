@@ -13,9 +13,6 @@
 Route::group(['namespace' => 'API'], function () {
   Route::post('/products/comments', 'ProductController@comment');
   Route::get('/products/comments/{limit}/{page}', 'ProductController@comments');
-
-  Route::get('/products/{order}/{limit}/{page}', 'ProductController@index');
-  Route::get('/likes/{userId}/{productId}', 'UserController@like');
-
+  Route::get('/products/{order}/{limit}/{page}/{userId}', 'ProductController@index');
   Route::get('/carts/{productId}/{quantity}/{userId?}', 'CartController@store');
 });

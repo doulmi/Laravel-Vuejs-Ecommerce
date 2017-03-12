@@ -1,8 +1,8 @@
 <template>
   <div>
     <div>
-      <div class="products row" id="products" >
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" v-for="product in products" >
+      <div class="products row" id="products">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" v-for="product in products">
           <a href="#" class="product" :id='product.id'>
             <div class="card-header">
               <div class="buy-button-container">
@@ -25,9 +25,7 @@
               </div>
               <div class="footer-right-side">
                 <i class="like-btn">
-                  <img class="icon"
-                       src="../../img/heart.png"
-                       alt="Likes">
+                  <img class="icon" :src="getHeart(product.myLike)" alt="Likes">
                   <span class="likes">{{product.likes ? product.likes : 0}}</span>
                 </i>
 
@@ -116,6 +114,10 @@
         }
       },
 
+      getHeart(liked) {
+        return liked == 0 ? '../../images/heart.png' : '../../images/heart-red.png';
+      },
+
       getProductUrl(slug) {
         return '/products/' + slug;
       },
@@ -128,8 +130,11 @@
       loadMore() {
         this.isLoading = true;
         const query = $("meta[name='query']").attr('content');
+        const auth = $("meta[name='auth']").attr('content');
 
-        this.$http.get('/api/' + this.url + this.limit + '/' + this.page + '?' + query).then(response => {
+        let url = '/api/' + this.url + this.limit + '/' + this.page + (auth > 0 ? '/' + auth : '') + '?' + query;
+
+        this.$http.get(url).then(response => {
           this.page ++;
           this.products = this.products.concat(response.data.data);
 
@@ -151,8 +156,5 @@
       }
     }
   }
-
-
-
 
 </script>

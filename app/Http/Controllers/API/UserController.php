@@ -84,16 +84,4 @@ class UserController extends Controller
     //
   }
 
-  public function like($userId, $productId)
-  {
-    $success = Like::create([
-      'product_id' => $productId,
-      'user_id' => $userId
-    ]);
-    if($success) {
-      return response()->json();
-    } else {
-      return response()->json(['error' => 'database_error'], 412);
-    }
-  }
 }

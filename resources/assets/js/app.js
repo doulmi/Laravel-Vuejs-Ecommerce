@@ -19,7 +19,6 @@ Vue.use(VueLazyload, {
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('sfooter', require('./components/Footer.vue'));
 Vue.component('product-list', require('./components/ProductList.vue'));
 
 const app = new Vue({
@@ -45,6 +44,7 @@ $(document).scroll(() => {
 goTop.click(() => {
   $("html, body").animate({scrollTop: 0}, "slow");
 });
+
 
 function setCookie(cname,cvalue,exdays) {
   let d = new Date();
