@@ -8,6 +8,7 @@ use App\Like;
 use App\Comment;
 use App\Product;
 use App\ProductRelative;
+use App\Repositories\ProductRepository;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,37 +17,16 @@ use Session;
 
 class ProductController extends Controller
 {
-  public function index(Request $request, $order, $limit, $page, $userId = -1)
+  private $productRepo;
+
+  public function __construct(ProductRepository $productRepo)
   {
-    $query = Product::query();
+    $this->productRepo = $productRepo;
+  }
 
-    /** order */
-    //random by default
-    if ($order == 'latest') { //latest
-      $query->orderBy('products.created_at', 'DESC');
-    } else if ($order == 'popular') {
-      //TODO : order by commands number
-    } else if ($order == 'expensive') { //most expensive
-      $query->orderBy('price', 'DESC');
-    } else if ($order == 'cheapest') { //cheapest
-      $query->orderBy('price', 'ASC');
-    } else {
-      $query->inRandomOrder();
-    }
-
-    //with buyer, likes and collects
-    $products = $query
-      ->paginate($limit, ['*'], 'page', $page);
-
-    foreach ($products as $product) {
-      $product->likes = Like::where('product_id', $product->id)->count();
-      if($userId > 0) {
-        $product->myLike = Like::where('product_id', $product->id)->where('user_id', $userId)->count() > 0 ? 1 : 0;
-      } else {
-        $product->myLike = 0;
-      }
-      $product->users = $product->buyers()->orderBy('orders.id')->limit(5)->get(['users.id', 'users.avatar']);
-    }
+  public function index($order, $limit, $page)
+  {
+    $products = $this->productRepo->paginate($order, $limit, $page);
 
     return $products;
   }

@@ -4,10 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Cart;
 use App\Http\Controllers\Controller;
-use Auth;
-use Cookie;
 use Illuminate\Http\Request;
-use Session;
 
 class CartController extends Controller
 {
@@ -36,17 +33,24 @@ class CartController extends Controller
    * @param  \Illuminate\Http\Request $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request, $productId, $quantity, $userId = -1)
+  public function store(Request $request)
   {
-    if ($userId > 0) {
+    $userId = $request->get('userId', 0);
+    if ($userId <= 0) {
       abort(403);
     }
 
-    Cart::create([
-      'product_id' => $productId,
+    $cart = Cart::create([
+      'product_id' => $request->get('productId'),
       'user_id' => $userId,
-      'quantity' => $quantity
+      'quantity' => $request->get('quantity')
     ]);
+
+    if($cart) {
+      return response()->json();
+    } else {
+      return response()->json(['error' => trans('database_error')], 412);
+    }
   }
 
   /**

@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use App;
 use App\Product;
 use App\ProductRelative;
+use App\Repositories\ProductRepository;
 use Auth;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+  private $productRepo;
+
+  public function __construct(ProductRepository $productRepo)
+  {
+    $this->productRepo = $productRepo;
+  }
+
   /**
    * Display a listing of the resource.
    *
@@ -49,28 +57,9 @@ class ProductController extends Controller
    */
   public function show($slug)
   {
-    $product = Product::where('slug', $slug)->first();
-
-    if ($product) {
-      $relativeProducts = ProductRelative::with('relativeProduct')->where('product_id', $product->id)->get();
-
-      if (App::getLocale() == 'fr') {
-        $product->name = $product->name_fr;
-      } else {
-        $product->name = $product->name_en;
-      }
-
-      //get first 5 buyers of this products
-      $buyers = $product->buyers()->orderBy('orders.id')->limit(5)->get(['users.id', 'users.avatar']);
-      if (Auth::check()) {
-        $product->like = App\Like::where('user_id', Auth::id())->where('product_id', $product->id)->first() ? 1 : 0;
-      } else {
-        $product->like = 0;
-      }
-
-      return view('products.show', compact('product', 'relativeProducts', 'buyers'));
-    }
-    abort(404);
+    $userId = Auth::check() ? Auth::id() : 0;
+    $product = $this->productRepo->findBySlug($slug, App::getLocale(), $userId);
+    return view('products.show', compact('product'));
   }
 
   /**

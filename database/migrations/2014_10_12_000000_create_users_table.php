@@ -29,12 +29,18 @@ class CreateUsersTable extends Migration
       $table->boolean('confirmed');
       $table->string('confirmation_code');
 
+      //用户账户余额
+      $table->float('credit');
+
+      //用户推广号
+      $table->string('marketingId')->unique();
+
       //foreign keys
       $table->integer('language_id')->unsigned();
-      $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');;
+      $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
       
       $table->integer('currency_id')->unsigned();
-      $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');;
+      $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
     });
   }
 

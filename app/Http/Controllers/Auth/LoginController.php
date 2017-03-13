@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Auth;
 
+use App\Events\AfterLogin;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -46,9 +47,7 @@ class LoginController extends Controller
 
   protected function authenticated(Request $request, $user)
   {
-    //move all productIds from sessions to database
-
-
+//    event(new AfterLogin);
     return redirect(Session::get('prevUrl', '/'));
   }
 }

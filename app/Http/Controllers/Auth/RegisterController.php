@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\AfterLogin;
+use App\Helper;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -69,13 +71,19 @@ class RegisterController extends Controller
   public function create(array $data)
   {
     $email = $data['email'];
-    return User::create([
+    $user = User::create([
       'name' => $this->autoName($email),
       'avatar' => $this->getGravatar($email, 128),
       'email' => $email,
       'confirmation_code' => str_random(64),
       'password' => bcrypt($data['password']),
+      'marketId' => Helper::getMarketId()
     ]);
+
+    //getCookies
+//    event(new AfterLogin($user));
+
+    return $user;
   }
 
   private function getGravatar($email, $s = 80, $d = 'identicon', $r = 'g') {

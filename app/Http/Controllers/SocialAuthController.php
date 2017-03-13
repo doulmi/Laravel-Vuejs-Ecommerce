@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AfterLogin;
+use App\Helper;
 use App\SocialAccount;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -43,8 +45,9 @@ class SocialAuthController extends Controller
     $account = SocialAccount::whereProvider($provider)
       ->whereProviderUserId($providerUser->getId())
       ->first();
+
     if ($account) {
-      return $account->user;
+      $user = $account->user;
     } else {
       $account = new SocialAccount([
         'provider_user_id' => $providerUser->getId(),
@@ -57,19 +60,24 @@ class SocialAuthController extends Controller
           $user = User::create([
             'email' => $providerUser->getEmail(),
             'name' => $providerUser->getName(),
-            'password' => bcrypt('123456')
+            'password' => str_random(6),
+            'marketId' => Helper::getMarketId()
           ]);
         }
       } else {
         $user = User::create([
           'name' => $providerUser->getName(),
-          'password' => bcrypt('123456')
+          'password' => str_random(6),
+          'marketId' => Helper::getMarketId()
         ]);
       }
 
       $account->user()->associate($user);
       $account->save();
-      return $user;
     }
+
+
+//    event(new AfterLogin);
+    return $user;
   }
 }

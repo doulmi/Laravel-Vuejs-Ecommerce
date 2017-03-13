@@ -25,7 +25,8 @@
                      data-max="{{$product->stock}}"/>
               <button class="Quantity-btn increment" id="increment" @click.stop.prevent="increment">+</button>
               <button class="Quantity-btn decrement" id="decrement" @click.stop.prevent="decrement">-</button>
-              <a class="Button Buy-btn">@lang('labels.addToCart')</a>
+              <a class="Button Buy-btn"
+                 @click.stop.prevent="addToPanier('{{$product->id}}')">@lang('labels.addToCart')</a>
             </div>
           </div>
 
@@ -113,6 +114,30 @@
           integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
           crossorigin="anonymous"></script>
   <script>
+    function setCookie(cname, cvalue, exdays) {
+      if(exdays == undefined) exdays = 7;
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+      var expires = "expires=" + d.toGMTString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
     var quantity = $('#quantity');
     var stock = quantity.data('max');
     new Vue({
@@ -159,8 +184,15 @@
           }
         },
 
-        addToPanier: function () {
-
+        addToPanier: function (productId) {
+          var cart = getCookie('cart');
+          if (cart == '') {
+            setCookie('cart', productId + ':' + this.quantity);
+            console.log('set cart');
+          } else {
+            setCookie('cart', cart + '&' + productId + ':' + this.quantity);
+            console.log('renew cart');
+          }
         }
       }
     });

@@ -23,6 +23,12 @@ Route::get('/explore/popular', 'PostController@popular')->name('index.popular');
 Route::get('/products/{slug}', 'ProductController@show')->name('products.show');
 Route::get('/cart', 'CartController@index')->name('cart');
 
+Route::get('/stripedemo', function() {
+  return view('stripedemo');
+});
+
+Route::post('pay', 'PaymentController@charge');
+
 Route::get('/shop', function () {
   return 'shop';
 })->name('shop');

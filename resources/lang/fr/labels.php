@@ -42,5 +42,14 @@ return [
   'liked' => 'Liked',
   'needAuthenticate' => 'Vous devez vous connecter',
   'language' => 'Language',
+
+
+  //info
+  'card' => [
+    'number' => 'Numéro de carte',
+    'holder' =>'Nom sur la carte',
+    'CVC' => 'CVC',
+    'expiration' => 'Expiration',
+  ],
 ];
 

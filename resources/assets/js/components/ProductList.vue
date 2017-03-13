@@ -129,10 +129,15 @@
 
       loadMore() {
         this.isLoading = true;
-        const query = $("meta[name='query']").attr('content');
+        let query = $("meta[name='query']").attr('content');
         const auth = $("meta[name='auth']").attr('content');
 
-        let url = '/api/' + this.url + this.limit + '/' + this.page + (auth > 0 ? '/' + auth : '') + '?' + query;
+        if(query != '') {
+          query += '&';
+        }
+        query += 'userId' + (auth > 0 ? '/' + auth : '');
+
+        let url = '/api/' + this.url + this.limit + '/' + this.page + '?' + query;
 
         this.$http.get(url).then(response => {
           this.page ++;

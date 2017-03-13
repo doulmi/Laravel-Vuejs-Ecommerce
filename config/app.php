@@ -167,8 +167,7 @@ return [
      * Package Service Providers...
      */
     Laravel\Socialite\SocialiteServiceProvider::class,
-
-    //
+    Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
 
     /*
      * Application Service Providers...
@@ -179,6 +178,10 @@ return [
     App\Providers\EventServiceProvider::class,
     App\Providers\RouteServiceProvider::class,
 
+    /**
+     * My provider
+     */
+    App\Providers\PaymentProvider::class,
   ],
 
   /*
@@ -226,7 +229,10 @@ return [
     'URL' => Illuminate\Support\Facades\URL::class,
     'Validator' => Illuminate\Support\Facades\Validator::class,
     'View' => Illuminate\Support\Facades\View::class,
+
+    //Package Alias
     'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+    'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class
   ],
 
 ];
