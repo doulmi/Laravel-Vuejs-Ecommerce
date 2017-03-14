@@ -99,78 +99,77 @@
       </div>
     </div>
 
-    {{-- comment parts --}}
-    @if(Auth::check())
-      {{-- Comment --}}
-    @else
-      {{-- Should login to leave a comment --}}
-    @endif
-  </div>
-@endsection
+    <div class="row comments">
+      {{-- comment parts --}}
+      @if(Auth::check())
+        {{-- Comment --}}
+      @else
+        {{-- Should login to leave a comment --}}
+      @endif
+    </div>
+    @endsection
 
-@section('js')
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-          integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-          crossorigin="anonymous"></script>
-  <script>
+    @section('js')
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+              integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+              crossorigin="anonymous"></script>
+      <script>
+        var quantity = $('#quantity');
+        var stock = quantity.data('max');
+        new Vue({
+          el: 'body',
+          data: {
+            liked: ($('#like').val() == '1') ? true : false,
+            quantity: 1,
+            auth: $('meta[name=auth]').attr('content'),
+            token: $('meta[name=token]').attr("content")
+          },
 
+          methods: {
+            like: function () {
+              var likeUrl = $('#likeUrl').val();
 
-    var quantity = $('#quantity');
-    var stock = quantity.data('max');
-    new Vue({
-      el: 'body',
-      data: {
-        liked: ($('#like').val() == '1') ? true : false,
-        quantity: 1,
-        auth: $('meta[name=auth]').attr('content'),
-        token: $('meta[name=token]').attr("content")
-      },
+              if (this.auth > 1) {
+                this.liked = !this.liked;
+                $.post(likeUrl, {_token: this.token}, function (data) {
+                  //success
+                }).fail(function () {
+                  this.liked = !this.liked;
+                  console.log('liked failed');
+                }.bind(this));
+              } else {
+                $('#loginModal').modal();
+              }
+            },
 
-      methods: {
-        like: function () {
-          var likeUrl = $('#likeUrl').val();
+            collect: function () {
 
-          if (this.auth > 1) {
-            this.liked = !this.liked;
-            $.post(likeUrl, {_token: this.token}, function (data) {
-              //success
-            }).fail(function () {
-              this.liked = !this.liked;
-              console.log('liked failed');
-            }.bind(this));
-          } else {
-            $('#loginModal').modal();
-          }
-        },
+            },
 
-        collect: function () {
+            increment: function () {
+              var num = parseInt(this.quantity) + 1;
+              if (num <= stock) {
+                this.quantity = num;
+              }
+            },
 
-        },
+            decrement: function () {
+              var num = parseInt(this.quantity) - 1;
+              if (num > 0) {
+                this.quantity = num;
+              }
+            },
 
-        increment: function () {
-          var num = parseInt(this.quantity) + 1;
-          if (num <= stock) {
-            this.quantity = num;
-          }
-        },
-
-        decrement: function () {
-          var num = parseInt(this.quantity) - 1;
-          if (num > 0) {
-            this.quantity = num;
-          }
-        },
-
-        addToPanier: function (productId) {
-          if (this.auth > 1) {
-            var url = '/api/carts/' + productId + '/' + this.quantity + '/' + this.auth;
-            $.post(url, {_token: this.token}, function () {
-              updateCart(this.quantity);
-            }.bind(this)).fail(function () {
-            }.bind(this));
-          } else {
-            $('#loginModal').modal('show');
+            addToPanier: function (productId) {
+              if (this.auth > 1) {
+                var url = '/api/carts/' + productId + '/' + this.quantity + '/' + this.auth;
+                $.post(url, {_token: this.token}, function () {
+                  updateCart(this.quantity);
+                }.bind(this)).fail(function () {
+                }.bind(this));
+              } else {
+                $('#loginModal').modal('show');
 //            var cart = getCookie('cart');
 //            if (cart == '') {
 //              setCookie('cart', '{ "' + productId + '" :' + this.quantity + '}');
@@ -183,36 +182,36 @@
 //              }
 //              setCookie('cart', JSON.stringify(records));
 //            updateCart(this.quantity);
+              }
+            }
           }
-        }
-      }
-    });
+        });
 
-    $(function () {
-      quantity.keydown(function (e) {
-        // Allow: backspace, delete, tab, escape, enter and .
-        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-          // Allow: Ctrl+A, Command+A
-          (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-          // Allow: home, end, left, right, down, up
-          (e.keyCode >= 35 && e.keyCode <= 40)) {
-          // let it happen, don't do anything
-          return;
-        }
-        // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-          e.preventDefault();
-        }
-      });
+        $(function () {
+          quantity.keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+              // Allow: Ctrl+A, Command+A
+              (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+              // Allow: home, end, left, right, down, up
+              (e.keyCode >= 35 && e.keyCode <= 40)) {
+              // let it happen, don't do anything
+              return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+              e.preventDefault();
+            }
+          });
 
-      quantity.change(function () {
-        var num = parseInt(quantity.val());
-        if (num < 1) {
-          quantity.val(1);
-        } else if (num > stock) {
-          quantity.val(stock);
-        }
-      });
-    });
-  </script>
+          quantity.change(function () {
+            var num = parseInt(quantity.val());
+            if (num < 1) {
+              quantity.val(1);
+            } else if (num > stock) {
+              quantity.val(stock);
+            }
+          });
+        });
+      </script>
 @endsection

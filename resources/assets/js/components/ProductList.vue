@@ -24,7 +24,7 @@
                 <img src="../../img/flash.png" alt="">
               </div>
               <div class="footer-right-side">
-                <i class="like-btn">
+                <i class="like-btn" @click.stop.prevent="likeAction(product)">
                   <img class="icon" :src="getHeart(product.myLike)" alt="Likes">
                   <span class="likes">{{product.likes ? product.likes : 0}}</span>
                 </i>
@@ -106,6 +106,27 @@
     },
 
     methods: {
+      likeAction(product) {
+        const likeUrl = '/likes/' + product.id;
+        const auth = $("meta[name='auth']").attr('content');
+
+        if (auth > 1) {
+          if(product.myLike) {
+            product.myLike = false;
+            product.likes --;
+          } else {
+            product.myLike = true;
+            product.likes ++;
+          }
+          this.$http.post(likeUrl).then(response => {
+          }, error => {
+            this.liked = !this.liked;
+            console.log('liked failed');
+          });
+        } else {
+          $('#loginModal').modal();
+        }
+      },
       getProductName(product) {
         if(this.lang == 'fr') {
           return product.name_fr;
@@ -135,7 +156,9 @@
         if(query != '') {
           query += '&';
         }
-        query += 'userId' + (auth > 0 ? '/' + auth : '');
+        if(auth > 0 ) {
+          query += 'userId=' + auth;
+        }
 
         let url = '/api/' + this.url + this.limit + '/' + this.page + '?' + query;
 
@@ -161,5 +184,7 @@
       }
     }
   }
+
+
 
 </script>

@@ -19,5 +19,6 @@ Route::group(['namespace' => 'API'], function () {
 
   Route::group(['prefix' => 'carts'], function() {
     Route::post('/{productId}/{quantity}/{userId?}', 'CartController@store');
+    Route::delete('/{productId}/delete', 'CartController@destroy');
   });
 });

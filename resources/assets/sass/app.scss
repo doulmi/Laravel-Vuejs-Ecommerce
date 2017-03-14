@@ -2023,3 +2023,66 @@ button.close {
   }
 }
 
+.cart-header {
+  color: $black;
+}
+
+.cart-media {
+  border-top: 2px solid whitesmoke;
+  background: white;
+  margin-top: 0;
+
+  &.empty {
+    background:transparent;
+    border-top: none;
+  }
+  .cart-left {
+    min-width: 150px;
+    padding-right: 0;
+  }
+
+  .cart-avatar {
+    height: 150px;
+    margin: 0 auto;
+
+    &.empty {
+      height: inherit;
+    }
+  }
+
+  .cart-price {
+    color: $errorColor;
+    font-size: 16px;
+    margin-top: -2px;
+  }
+
+  .cart-heading {
+    margin-top: 15px;
+    color: $secondaryTextColor;
+  }
+}
+
+.text-small {
+  font-size: 12px !important;
+}
+
+.text-danger {
+  color: $errorColor;
+}
+
+.text-primady {
+  color: $secondaryColor;
+}
+
+.text-info {
+  color: $infoColor;
+}
+
+.link {
+  color: $infoColor;
+
+  &:hover {
+    color: $secondaryColor;
+    text-decoration: underline;
+  }
+}
