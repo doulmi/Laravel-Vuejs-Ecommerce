@@ -11,8 +11,13 @@
 |
 */
 Route::group(['namespace' => 'API'], function () {
-  Route::post('/products/comments', 'ProductController@comment');
-  Route::get('/products/comments/{limit}/{page}', 'ProductController@comments');
-  Route::get('/products/{order}/{limit}/{page}/{userId?}', 'ProductController@index');
-  Route::get('/carts/{productId}/{quantity}/{userId?}', 'CartController@store');
+  Route::group(['prefix' => 'products'], function() {
+    Route::post('/comments', 'ProductController@comment');
+    Route::get('/comments/{limit}/{page}', 'ProductController@comments');
+    Route::get('/{order}/{limit}/{page}/{userId?}', 'ProductController@index');
+  });
+
+  Route::group(['prefix' => 'carts'], function() {
+    Route::post('/{productId}/{quantity}/{userId?}', 'CartController@store');
+  });
 });

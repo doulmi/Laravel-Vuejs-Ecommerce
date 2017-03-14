@@ -4,10 +4,19 @@ namespace App\Http\Controllers\API;
 
 use App\Cart;
 use App\Http\Controllers\Controller;
+use App\Repositories\CartRepository;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+
+  private $cartRepo;
+
+  public function __construct(CartRepository $cartRepo)
+  {
+    $this->cartRepo = $cartRepo;
+  }
+
   /**
    * Display a listing of the resource.
    *
@@ -18,13 +27,9 @@ class CartController extends Controller
     //
   }
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create()
+  public function count($userId)
   {
+    return Cart::where('user_id', $userId)->sum('quantity');
   }
 
   /**
@@ -33,23 +38,33 @@ class CartController extends Controller
    * @param  \Illuminate\Http\Request $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store(Request $request, $productId, $quantity, $userId)
   {
-    $userId = $request->get('userId', 0);
     if ($userId <= 0) {
       abort(403);
     }
 
-    $cart = Cart::create([
-      'product_id' => $request->get('productId'),
-      'user_id' => $userId,
-      'quantity' => $request->get('quantity')
-    ]);
+    $cart = Cart::with('product')->where('product_id', $productId)->where('user_id', $userId)->first();
+    if ($cart) {
+      if ($cart->quantity + $quantity <= $cart->product->stock) {
+        $cart = $cart->update([
+          'quantity' => intval($cart->quantity) + intval($quantity)
+        ]);
+      } else {
+        return response()->json(['error' => 'no_enough_stock'], 406);
+      }
+    } else {
+      $cart = Cart::create([
+        'product_id' => $productId,
+        'user_id' => $userId,
+        'quantity' => $quantity
+      ]);
+    }
 
-    if($cart) {
+    if ($cart) {
       return response()->json();
     } else {
-      return response()->json(['error' => trans('database_error')], 412);
+      return response()->json(['error' => trans('database_error')], 304);
     }
   }
 
@@ -97,4 +112,5 @@ class CartController extends Controller
   {
     //
   }
+
 }

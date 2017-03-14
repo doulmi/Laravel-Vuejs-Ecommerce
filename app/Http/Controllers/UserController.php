@@ -106,7 +106,7 @@ class UserController extends Controller
     if ($success) {
       return response()->json(['success' => true]);
     } else {
-      return response()->json(['success' => false, 'error' => 'database_error'], 412);
+      return response()->json(['success' => false, 'error' => 'database_error'], 304);
     }
   }
 }

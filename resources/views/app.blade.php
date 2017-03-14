@@ -63,6 +63,53 @@
   goTop.click(function () {
     $("html, body").animate({scrollTop: 0}, "slow");
   });
+//
+//  function setCookie(cname, cvalue, exdays) {
+//    if (exdays == undefined) exdays = 7;
+//    var d = new Date();
+//    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+//    var expires = "expires=" + d.toGMTString();
+//    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+//  }
+//
+//  function getCookie(cname) {
+//    var name = cname + "=";
+//    var decodedCookie = decodeURIComponent(document.cookie);
+//    var ca = decodedCookie.split(';');
+//    for (var i = 0; i < ca.length; i++) {
+//      var c = ca[i];
+//      while (c.charAt(0) == ' ') {
+//        c = c.substring(1);
+//      }
+//      if (c.indexOf(name) == 0) {
+//        return c.substring(name.length, c.length);
+//      }
+//    }
+//    return "";
+//  }
+
+  var panier = $('#cart');
+  function updateCart(quantity) {
+    panier.html(parseInt(panier.html()) + parseInt(quantity));
+  }
+
+//  //init panier
+//  function initPanier() {
+//    var auth = $('meta[name=auth]').attr('content');
+//    if(auth > 0) {
+//
+//    } else {
+//      var cart = JSON.parse(getCookie('cart'));
+//      var quantity = 0;
+//      Object.keys(cart).map(function(key) {
+//        quantity += cart[key];
+//      });
+//      console.log(quantity);
+//      updateCart(quantity);
+//    }
+//  }
+//
+//  initPanier();
 </script>
 @yield('js')
 

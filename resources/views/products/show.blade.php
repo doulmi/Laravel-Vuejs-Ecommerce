@@ -32,7 +32,7 @@
 
 
           <div class="Buyers">
-            @foreach($buyers as $buyer)
+            @foreach($product->buyers as $buyer)
               <img src="{{$buyer->avatar}}" alt="">
             @endforeach
           </div>
@@ -86,7 +86,7 @@
 
     <div class="row">
       <div class="Relative-products">
-        @foreach($relativeProducts as $i => $rp)
+        @foreach($product->relativeProducts as $i => $rp)
           <div class="col-sm-5ths ProductPivot">
             <a class="ProductPivot-product hover-overlay-light"
                href="{{route('products.show', $rp->relativeProduct->slug)}}">
@@ -114,29 +114,7 @@
           integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
           crossorigin="anonymous"></script>
   <script>
-    function setCookie(cname, cvalue, exdays) {
-      if(exdays == undefined) exdays = 7;
-      var d = new Date();
-      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-      var expires = "expires=" + d.toGMTString();
-      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-    }
 
-    function getCookie(cname) {
-      var name = cname + "=";
-      var decodedCookie = decodeURIComponent(document.cookie);
-      var ca = decodedCookie.split(';');
-      for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
-        }
-      }
-      return "";
-    }
 
     var quantity = $('#quantity');
     var stock = quantity.data('max');
@@ -146,6 +124,7 @@
         liked: ($('#like').val() == '1') ? true : false,
         quantity: 1,
         auth: $('meta[name=auth]').attr('content'),
+        token: $('meta[name=token]').attr("content")
       },
 
       methods: {
@@ -153,11 +132,10 @@
           var likeUrl = $('#likeUrl').val();
 
           if (this.auth > 1) {
-            var token = $('meta[name=token]').attr("content");
             this.liked = !this.liked;
-            $.post(likeUrl, {_token: token}, function (data) {
+            $.post(likeUrl, {_token: this.token}, function (data) {
               //success
-            }.bind(this)).fail(function () {
+            }).fail(function () {
               this.liked = !this.liked;
               console.log('liked failed');
             }.bind(this));
@@ -185,13 +163,26 @@
         },
 
         addToPanier: function (productId) {
-          var cart = getCookie('cart');
-          if (cart == '') {
-            setCookie('cart', productId + ':' + this.quantity);
-            console.log('set cart');
+          if (this.auth > 1) {
+            var url = '/api/carts/' + productId + '/' + this.quantity + '/' + this.auth;
+            $.post(url, {_token: this.token}, function () {
+              updateCart(this.quantity);
+            }.bind(this)).fail(function () {
+            }.bind(this));
           } else {
-            setCookie('cart', cart + '&' + productId + ':' + this.quantity);
-            console.log('renew cart');
+            $('#loginModal').modal('show');
+//            var cart = getCookie('cart');
+//            if (cart == '') {
+//              setCookie('cart', '{ "' + productId + '" :' + this.quantity + '}');
+//            } else {
+//              var records = JSON.parse(cart);
+//              if (records[productId]) {
+//                records[productId] = records[productId] + this.quantity;
+//              } else {
+//                records[productId] = this.quantity;
+//              }
+//              setCookie('cart', JSON.stringify(records));
+//            updateCart(this.quantity);
           }
         }
       }

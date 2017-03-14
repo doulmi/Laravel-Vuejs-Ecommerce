@@ -35,6 +35,8 @@
                 <input id="password-confirm" type="password" name="password_confirmation" required
                        placeholder="@lang('validation.attributes.password_confirmation')">
 
+
+
                 <button type="submit" class="loginmodal-submit" @click.stop.prevent="registerAction"
                         :disabled="onRegister" v-html="registerBtnText">@lang('labels.register')</button>
                 <hr/>

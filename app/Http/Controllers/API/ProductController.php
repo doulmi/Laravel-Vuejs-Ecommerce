@@ -27,7 +27,6 @@ class ProductController extends Controller
   public function index($order, $limit, $page)
   {
     $products = $this->productRepo->paginate($order, $limit, $page);
-
     return $products;
   }
 

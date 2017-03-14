@@ -61,14 +61,14 @@ class SocialAuthController extends Controller
             'email' => $providerUser->getEmail(),
             'name' => $providerUser->getName(),
             'password' => str_random(6),
-            'marketId' => Helper::getMarketId()
+            'marketingId' => Helper::getMarketId()
           ]);
         }
       } else {
         $user = User::create([
           'name' => $providerUser->getName(),
           'password' => str_random(6),
-          'marketId' => Helper::getMarketId()
+          'marketingId' => Helper::getMarketId()
         ]);
       }
 

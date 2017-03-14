@@ -182,6 +182,7 @@ return [
      * My provider
      */
     App\Providers\PaymentProvider::class,
+    \App\Providers\ComposerServiceProvider::class,
   ],
 
   /*

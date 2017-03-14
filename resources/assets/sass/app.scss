@@ -40,12 +40,12 @@ button, a {
 
 * {
   font-family: //'Lato',
-    //'Josefin Slab',
-    //"Open+Sans",
-    //"PT Sans",
-    //"Droid Sans",
-    "Arial",
-    "Roboto", "Times New Roman", sans-serif;
+          //'Josefin Slab',
+          //"Open+Sans",
+          //"PT Sans",
+          //"Droid Sans",
+          "Arial",
+          "Roboto", "Times New Roman", sans-serif;
   line-height: 1.7em;
   outline: none;
   border: none;
@@ -367,21 +367,6 @@ html, body, #app {
 
   &:hover {
     background: darken($secondaryColor, $darken);
-    color: $primaryColor;
-  }
-}
-
-.navbar-default .navbar-nav > li > a.panier-btn {
-  background: #A6A6A6;
-  color: rgba(255, 255, 255, 0.95);
-  padding: 5px 11px;
-  margin-top: 10px;
-  border-radius: 50%;
-  font-size: 12px;
-  margin-left: 10px;
-
-  &:hover {
-    background: darken(#A6A6A6, $darken);
     color: $primaryColor;
   }
 }
@@ -2027,5 +2012,14 @@ button.close {
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   opacity: 0.8;
-  background:none;
+  background: none;
 }
+
+.cart {
+  top: -5px;
+  position: relative;
+  span {
+    color: $secondaryColor;
+  }
+}
+

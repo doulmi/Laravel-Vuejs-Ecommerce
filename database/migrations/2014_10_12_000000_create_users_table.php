@@ -33,13 +33,16 @@ class CreateUsersTable extends Migration
       $table->float('credit');
 
       //用户推广号
-      $table->string('marketingId')->unique();
+      $table->string('marketingId')->nullable()->unique();
+
+      $table->string('api_token')->nullable()->unique();
 
       //foreign keys
       $table->integer('language_id')->unsigned();
       $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
       
       $table->integer('currency_id')->unsigned();
+
       $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
     });
   }

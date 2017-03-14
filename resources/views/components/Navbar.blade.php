@@ -95,6 +95,15 @@
                 </li>
               </ul>
             </li>
+
+            <li class="nav-btn">
+              <a class="icon-link cart" href="{{route('carts.index')}}">
+                <img
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAuQAAALkB4qdB6AAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGfSURBVEiJtZW/K0VhGMc/3+tHkUEii0WGO4iUkswiZWKxIYNMlH9AZiVFGa2yWjBJBqVMlIVFupGi3BDuY7jvuV7XOe45XE89vafvec7zPN/nx3tkZvynpCRtScp4ul7WAMA78Oy0BpiW1FG2CGZWUGAKMGDex/+iqaJ4u+4cLBcBFTdZ0hnQCjSY2ZOHDwHphP6Pv1EClsmXadDDqoCsw5PoVWVI1B1gjnyZdgDM7FVSL9AWM/MBYAbYC2NQS36iTn/bWODAMeiKMthzBi2/cN7tvt0PmyK/TAHVpDLrzhWAqCw6XRabCbNvBl6AS6DCzMIDOONr4A5IJQiwQNGi/mS84Yx7YjqvBjLAI1Af4GFjGsguMA6MSrqJUfthV6I1M7svoD9k1ATkSLZYOSDt+4lkYGa3ksaAkRjZB7JtZuc+8O0uKrdE7QGSUpKqkziTVBMrgKR+4AK4kjQR0/kq8CDpSFJj4UVEgw/5bFwGqCwxou18bfZi1A8nkIz3fGdmbyUIZAHf5roUgzSwRf5O6ou5aJPACbAE1AX4v0/RB7YqS4x/pS0rAAAAAElFTkSuQmCC"
+                  alt="">
+                <span id="cart">{{$cart}}</span>
+              </a>
+            </li>
           @else
             <li>
               <a class="login-btn" href="{{url('login')}}">@lang('labels.login')</a>
@@ -104,9 +113,6 @@
                  data-target="#registerModal">@lang('labels.register')</a>
             </li>
           @endif
-          <li>
-            <a class="panier-btn pointer">0</a>
-          </li>
         </ul>
       </div>
     </div>

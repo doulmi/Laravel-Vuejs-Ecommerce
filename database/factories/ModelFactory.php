@@ -22,6 +22,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     'avatar' => $faker->imageUrl(128, 128),
     'language_id' => 1,
     'currency_id' => 1,
+    'marketingId' => \App\Helper::getMarketId(),
     'remember_token' => str_random(10),
     'confirmed' => true
   ];

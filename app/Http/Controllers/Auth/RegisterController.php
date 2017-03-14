@@ -77,7 +77,7 @@ class RegisterController extends Controller
       'email' => $email,
       'confirmation_code' => str_random(64),
       'password' => bcrypt($data['password']),
-      'marketId' => Helper::getMarketId()
+      'marketingId' => Helper::getMarketId()
     ]);
 
     //getCookies

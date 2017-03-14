@@ -14,11 +14,11 @@ require('laravel-elixir-vue-2');
  */
 
 elixir((mix) => {
-  mix.sass('app.scss')
-    .webpack('app.js');
+  mix.sass('app.scss');
+    // .webpack('app.js');
 
-  mix.scripts([
-    'vue.min.js',
-    'products.show.js'
-  ], 'public/js/products.show.js');
+  // mix.scripts([
+  //   'vue.min.js',
+  //   'products.show.js'
+  // ], 'public/js/products.show.js');
 });
