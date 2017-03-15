@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
   public function index() {
-    $records = Cart::with('product')->where('user_id', Auth::id())->get();
+    $records = Cart::with('product')->where('user_id', Auth::id())->get()->toJson();
     return view('cart', compact('records'));
   }
 }

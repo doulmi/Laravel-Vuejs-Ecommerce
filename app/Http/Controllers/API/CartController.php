@@ -108,9 +108,19 @@ class CartController extends Controller
    * @param  int $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+  public function destroy(Request $request, $id)
   {
-    //
+    $userId = $request->get('userId');
+    $record = Cart::where('user_id', $userId)->where('id', $id)->first();
+    if($record) {
+      $success = $record->delete();
+      if($success) {
+        return response()->json();
+      } else {
+        return response()->json(['error' => 'database_error'], 412);
+      }
+    } else {
+      return response()->json(['error' => 'Unauthorized'], 401);
+    }
   }
-
 }

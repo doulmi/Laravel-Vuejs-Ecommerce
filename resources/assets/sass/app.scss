@@ -2051,7 +2051,8 @@ button.close {
   }
 
   .cart-price {
-    color: $errorColor;
+    color: $secondaryColor;
+    font-weight:bold;
     font-size: 16px;
     margin-top: -2px;
   }
@@ -2082,7 +2083,7 @@ button.close {
   color: $infoColor;
 
   &:hover {
-    color: $secondaryColor;
+    color: $darken($infoColor, $darken);
     text-decoration: underline;
   }
 }

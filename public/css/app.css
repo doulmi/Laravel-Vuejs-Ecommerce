@@ -17414,7 +17414,8 @@ button.close {
 }
 
 .cart-media .cart-price {
-  color: #FF5E4D;
+  color: #2fdab8;
+  font-weight: bold;
   font-size: 16px;
   margin-top: -2px;
 }
@@ -17445,7 +17446,7 @@ button.close {
 }
 
 .link:hover {
-  color: #2fdab8;
+  color: 10% #3398e1, 10%;
   text-decoration: underline;
 }
 
