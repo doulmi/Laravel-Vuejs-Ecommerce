@@ -15,11 +15,10 @@
 </head>
 
 <body>
-
 <div class="container">
   <div class='row'>
     <div class='col-md-4 col-md-offset-4'>
-      <form accept-charset="UTF-8" action="/pay"  id="payment-form" method="post">
+      <form accept-charset="UTF-8" action="/pay" id="payment-form" method="post">
         {!! csrf_field() !!}
         <div class='form-row'>
           <div class='col-xs-12 form-group'>
@@ -36,15 +35,18 @@
         <div class='form-row'>
           <div class='col-xs-4 form-group cvc'>
             <label class='control-label'>@lang('labels.card.CVC')</label>
-            <input autocomplete='off' class='form-control card-cvc' placeholder='ex. 311' size='4' type='text' name="cvc" required>
+            <input autocomplete='off' class='form-control card-cvc' placeholder='ex. 311' size='4' type='text'
+                   name="cvc" required>
           </div>
           <div class='col-xs-4 form-group expiration'>
             <label class='control-label'>@lang('labels.card.expiration')</label>
-            <input class='form-control card-expiry-month' placeholder='MM' size='2' type='text' name="expiration_month" required>
+            <input class='form-control card-expiry-month' placeholder='MM' size='2' type='text' name="expiration_month"
+                   required>
           </div>
           <div class='col-xs-4 form-group expiration'>
             <label class='control-label'></label>
-            <input class='form-control card-expiry-year' placeholder='AAAA' size='4' type='text' name="expiration_year" required>
+            <input class='form-control card-expiry-year' placeholder='AAAA' size='4' type='text' name="expiration_year"
+                   required>
           </div>
         </div>
 

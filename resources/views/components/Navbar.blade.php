@@ -55,7 +55,7 @@
               </a>
             </li>
 
-            <li class="dropdown profile-btn ">
+            <li class="dropdown profile-btn">
               <a href="#" class="avatar" data-toggle="dropdown" role="button" aria-haspopup="true"
                  aria-expanded="true">
                 <img class='avatar avatar-small hover-overlay' src="{{Auth::user()->avatar}}"/>

@@ -20,11 +20,11 @@
       </div>
     </div>
 
-    <div v-if="isLoading">
+    <div id="loadProgress">
       @include('components.LoadProgress')
     </div>
 
-    <div v-for="record in records" v-if="!isLoading">
+    <div v-for="record in records" id="cartList">
       <div class="media cart-media">
         <div class="media-left cart-left">
           <a :href="getUrl(record.prodcut)">
@@ -43,8 +43,7 @@
             </div>
             <div class="col-md-2 cart-price">@lang('labels.euro') @{{ record.product.price }}</div>
             <div class="col-md-2">
-              <input type="text" v-model="record.quantity" class="cart-quantity" @change="quantityChange(record)
-              " @keydown="quantityKeydown"/>
+              <input type="text" v-model="record.quantity" class="cart-quantity" @change="quantityChange(record)" @keydown="quantityKeydown"/>
               <button class="Quantity-btn small increment" id="increment"
                       @click.stop.prevent="increment(record)">+
               </button>
@@ -60,8 +59,13 @@
         </div>
       </div>
     </div>
-    <div class="text-right">
-      a.btn
+    <div class="top2">
+
+            <div class="col-md-2 cart-price">@lang('labels.euro') @{{ totalPrice }}</div>
+            <div class="col-md-3"><a href="" class="Button small Buy-btn">@lang('labels.passCommand')</a></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <input type="hidden" id="records" value="{{$records}}"/>
@@ -69,6 +73,7 @@
 
 @section('js')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script>
     $(function () {
       new Vue({
@@ -82,7 +87,22 @@
 
         ready: function () {
           this.records = JSON.parse($('#records').val());
+
+//          this.records.map(function(record) {
+//            record.error = "Too many request";
+//          });
+
           this.isLoading = false;
+        },
+
+        computed: {
+          totalPrice: function() {
+            var total = 0;
+            this.records.map(function(record) {
+              total += record.quantity * record.product.price;
+            });
+            return total;
+          }
         },
 
         methods: {
@@ -139,6 +159,7 @@
             } else if (num > record.product.stock) {
               record.quantity = record.product.stock;
               record.error = 'Stock Max: ' + record.product.stock;
+              console.log(record.error);
             }
           }
         }

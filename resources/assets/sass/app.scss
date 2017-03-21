@@ -1869,6 +1869,12 @@ a.Button, .Button, input[type=submit] {
   &:hover {
     box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.04), 0 0 0 0 rgba(0, 0, 0, 0.02), 0 2px 20px 1px rgba(0, 0, 0, 0.2)
   }
+
+  &.small {
+    margin: 0;
+    padding: 10px 15px;
+    font-size: 16px;
+  }
 }
 
 .social-share {
@@ -2120,4 +2126,16 @@ button.close {
     text-decoration: underline;
     color: darken($secondaryTextColor, $darken) !important;
   }
+}
+
+.top2 {
+  margin-top: 20px;
+}
+
+.top1 {
+  margin-top: 10px;
+}
+
+.top6 {
+  margin-top: 60px;
 }
