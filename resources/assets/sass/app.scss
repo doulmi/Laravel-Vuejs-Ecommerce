@@ -40,12 +40,12 @@ button, a {
 
 * {
   font-family: //'Lato',
-          //'Josefin Slab',
-          //"Open+Sans",
-          //"PT Sans",
-          //"Droid Sans",
-          "Arial",
-          "Roboto", "Times New Roman", sans-serif;
+    //'Josefin Slab',
+    //"Open+Sans",
+    //"PT Sans",
+    //"Droid Sans",
+    "Arial",
+    "Roboto", "Times New Roman", sans-serif;
   line-height: 1.7em;
   outline: none;
   border: none;
@@ -1991,6 +1991,20 @@ button.close {
   color: #666;
   border: 1px solid whitesmoke;
 
+  &.small {
+    height: 24px;
+
+    &.increment {
+      left: -4px;
+      top: -12px;
+    }
+
+    &.decrement {
+      left: -28px;
+      top: 11px;
+    }
+  }
+
   &:hover {
     background: whitesmoke;
   }
@@ -2015,6 +2029,12 @@ button.close {
   background: none;
 }
 
+.container {
+  &.carts {
+    margin-bottom: 100px;
+  }
+}
+
 .cart {
   top: -5px;
   position: relative;
@@ -2023,8 +2043,16 @@ button.close {
   }
 }
 
+.cart-quantity {
+  width: 40%;
+  padding: 12px 5px;
+  background: whitesmoke;
+}
+
 .cart-header {
   color: $black;
+  font-size: 24px;
+  margin-top: 12px;
 }
 
 .cart-media {
@@ -2033,7 +2061,7 @@ button.close {
   margin-top: 0;
 
   &.empty {
-    background:transparent;
+    background: transparent;
     border-top: none;
   }
   .cart-left {
@@ -2052,9 +2080,8 @@ button.close {
 
   .cart-price {
     color: $secondaryColor;
-    font-weight:bold;
+    font-weight: bold;
     font-size: 16px;
-    margin-top: -2px;
   }
 
   .cart-heading {
@@ -2083,7 +2110,14 @@ button.close {
   color: $infoColor;
 
   &:hover {
-    color: $darken($infoColor, $darken);
+    color: $darken ($infoColor, $darken);
     text-decoration: underline;
+  }
+}
+
+.lang-link {
+  &.active {
+    text-decoration: underline;
+    color: darken($secondaryTextColor, $darken) !important;
   }
 }

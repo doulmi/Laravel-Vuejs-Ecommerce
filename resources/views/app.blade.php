@@ -10,6 +10,7 @@
   <meta name="lang" content="{{App::getLocale()}}">
   <meta name="fullUrl" content="{{Request::fullUrl()}}">
   <meta name="token" content="{{csrf_token()}}">
+  <meta name="baseUrl" content="{{url('')}}">
   <meta name="auth" content="{{Auth::check() ? Auth::id() : 0}}">
   <title>Sousoutake</title>
   <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT" rel="stylesheet">

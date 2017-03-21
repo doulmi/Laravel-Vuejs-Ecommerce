@@ -112,6 +112,7 @@ class CartController extends Controller
   {
     $userId = $request->get('userId');
     $record = Cart::where('user_id', $userId)->where('id', $id)->first();
+
     if($record) {
       $success = $record->delete();
       if($success) {

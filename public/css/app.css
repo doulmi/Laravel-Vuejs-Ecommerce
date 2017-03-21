@@ -17352,6 +17352,20 @@ button.close {
   border: 1px solid whitesmoke;
 }
 
+.Quantity-btn.small {
+  height: 24px;
+}
+
+.Quantity-btn.small.increment {
+  left: -4px;
+  top: -12px;
+}
+
+.Quantity-btn.small.decrement {
+  left: -28px;
+  top: 11px;
+}
+
 .Quantity-btn:hover {
   background: whitesmoke;
 }
@@ -17375,6 +17389,10 @@ button.close {
   background: none;
 }
 
+.container.carts {
+  margin-bottom: 100px;
+}
+
 .cart {
   top: -5px;
   position: relative;
@@ -17384,8 +17402,16 @@ button.close {
   color: #2fdab8;
 }
 
+.cart-quantity {
+  width: 40%;
+  padding: 12px 5px;
+  background: whitesmoke;
+}
+
 .cart-header {
   color: #212121;
+  font-size: 24px;
+  margin-top: 12px;
 }
 
 .cart-media {
@@ -17417,7 +17443,6 @@ button.close {
   color: #2fdab8;
   font-weight: bold;
   font-size: 16px;
-  margin-top: -2px;
 }
 
 .cart-media .cart-heading {
@@ -17448,6 +17473,11 @@ button.close {
 .link:hover {
   color: 10% #3398e1, 10%;
   text-decoration: underline;
+}
+
+.lang-link.active {
+  text-decoration: underline;
+  color: #313131 !important;
 }
 
 /*# sourceMappingURL=app.css.map */
