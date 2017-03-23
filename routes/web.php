@@ -40,6 +40,7 @@ Route::get('/{userId}/collections', 'UserController@collects')->name('collection
 Route::group(['middleware' => 'auth'], function() {
   Route::post('/likes/{productId}', 'UserController@like')->name('actions.like');
   Route::get('/cart', 'CartController@index')->name('carts.index');
+  Route::put('/cart', 'CartController@update')->name('carts.update');
 });
 
 Auth::routes();

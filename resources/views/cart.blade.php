@@ -25,7 +25,7 @@
     </div>
 
     <div v-for="record in records" id="cartList">
-      <div class="media cart-media">
+      <div class="media cart-media" :id="getId(record)">
         <div class="media-left cart-left">
           <a :href="getUrl(record.prodcut)">
             <img :src="record.product.avatar" alt="" class="media-object cart-avatar">
@@ -41,9 +41,11 @@
               <span class="pointer link text-small"
                     @click.stop.prevent="deleteRecord(record)">@lang('labels.delete')</span>
             </div>
+
             <div class="col-md-2 cart-price">@lang('labels.euro') @{{ record.product.price }}</div>
             <div class="col-md-2">
-              <input type="text" v-model="record.quantity" class="cart-quantity" @change="quantityChange(record)" @keydown="quantityKeydown"/>
+              <input type="text" v-model="record.quantity" class="cart-quantity" @change="quantityChange(record)
+              " @keydown="quantityKeydown"/>
               <button class="Quantity-btn small increment" id="increment"
                       @click.stop.prevent="increment(record)">+
               </button>
@@ -59,13 +61,15 @@
         </div>
       </div>
     </div>
-    <div class="top2">
 
-            <div class="col-md-2 cart-price">@lang('labels.euro') @{{ totalPrice }}</div>
-            <div class="col-md-3"><a href="" class="Button small Buy-btn">@lang('labels.passCommand')</a></div>
-          </div>
-        </div>
-      </div>
+    <div class="load-more" v-show="isQuantityModified" @click.stop.prevent="updateQuantity">
+      @lang('labels.updateQuantity')
+    </div>
+
+    <div class="top2">
+      <div class="col-md-2 cart-price">@lang('labels.euro') @{{ totalPrice }}</div>
+      <div class="col-md-3"><a href="#" @click.stop.prevent="validCommand"
+                               class="Button small Buy-btn">@lang('labels.passCommand')</a></div>
     </div>
   </div>
   <input type="hidden" id="records" value="{{$records}}"/>
@@ -73,7 +77,9 @@
 
 @section('js')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+          integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+          crossorigin="anonymous"></script>
   <script>
     $(function () {
       new Vue({
@@ -87,18 +93,24 @@
 
         ready: function () {
           this.records = JSON.parse($('#records').val());
-
-//          this.records.map(function(record) {
-//            record.error = "Too many request";
-//          });
-
+          this.records.map(function (record) {
+            record.origin_quantity = record.quantity;
+          });
           this.isLoading = false;
         },
 
         computed: {
-          totalPrice: function() {
+          isQuantityModified: function () {
+            for (var i = 0; i < records.length; i++) {
+              record = records[i];
+              if (record.origin_quantity != record.quantity) return false;
+            }
+            return true;
+          },
+
+          totalPrice: function () {
             var total = 0;
-            this.records.map(function(record) {
+            this.records.map(function (record) {
               total += record.quantity * record.product.price;
             });
             return total;
@@ -106,8 +118,26 @@
         },
 
         methods: {
-          getUrl: function (product) {
+          getId: function(record) {
+            return 'record-' + record.id;
+          },
 
+          updateQuantity: function() {
+            var changedRecords = [];
+            this.records.map(function(record) {
+              if(record.quantity != record.origin_quantity) {
+                changedRecords.push(record);
+              }
+            })
+
+            var url = this.baseUrl + '/carts';
+            $.put(url, {records: changedRecords, _token: $('meta[name=token]').attr('content')}, function() {
+
+            });
+          },
+
+          getUrl: function (product) {
+            return this.baseUrl + '/products/' + product.slug;
           },
 
           deleteRecord: function (record) {
@@ -159,8 +189,15 @@
             } else if (num > record.product.stock) {
               record.quantity = record.product.stock;
               record.error = 'Stock Max: ' + record.product.stock;
-              console.log(record.error);
             }
+
+            //TODO: show mask layer
+            $.put(url, {id: record.id, _token: $('meta[name=token]').attr('content')}, function(response) {
+              //TODO: hide mask layer
+            }).fail(function() {
+              //TODO: Show error
+              //TODO: hide mask layer
+            });
           }
         }
       });

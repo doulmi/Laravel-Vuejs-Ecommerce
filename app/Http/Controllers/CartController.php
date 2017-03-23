@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Cart;
+use App\Product;
 use Auth;
+use DB;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -21,6 +23,18 @@ class CartController extends Controller
     }
     $records = $records->toJson();
     return view('cart', compact('records'));
+  }
+
+  public function update(Request $request) {
+    $records = $request->get('records');
+    $productIds = [];
+    foreach($records as $record) {
+      $productIds[] = $record->product->id;
+    }
+
+//    DB::transaction(function() use ($records, $productIds) {
+//      $products = Product::whereIn('id', $productIds);
+//    });
   }
 }
 
