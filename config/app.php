@@ -11,8 +11,7 @@ return [
   | framework needs to place the application's name in a notification or
   | any other location as required by the application or its packages.
   */
-
-  'name' => 'Laravel',
+  'name' => 'Sousoutake',
 
   /*
   |--------------------------------------------------------------------------
@@ -168,6 +167,8 @@ return [
      */
     Laravel\Socialite\SocialiteServiceProvider::class,
     Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
+    Backpack\Base\BaseServiceProvider::class,
+    Backpack\CRUD\CrudServiceProvider::class,
 
     /*
      * Application Service Providers...
@@ -182,7 +183,7 @@ return [
      * My provider
      */
     App\Providers\PaymentProvider::class,
-    \App\Providers\ComposerServiceProvider::class,
+    App\Providers\ComposerServiceProvider::class,
   ],
 
   /*
@@ -233,7 +234,7 @@ return [
 
     //Package Alias
     'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-    'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class
+    'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
   ],
 
 ];

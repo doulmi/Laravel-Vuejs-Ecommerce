@@ -23,6 +23,6 @@ class PaymentProvider extends ServiceProvider
      */
     public function register()
     {
-      $this->app->bind('PaymentStrategy', 'StripePayment');
+      $this->app->bind('App\Payments\PaymentStrategy', 'App\Payments\StripePayment');
     }
 }

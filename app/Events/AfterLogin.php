@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;

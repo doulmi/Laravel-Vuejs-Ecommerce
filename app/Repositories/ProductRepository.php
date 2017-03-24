@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Like;
-use App\Product;
-use App\ProductRelative;
+use App\Models\Like;
+use App\Models\Product;
+use App\Models\ProductRelative;
 use Illuminate\Http\Request;
 
 class ProductRepository

@@ -1,6 +1,11 @@
 <?php
 
-use App\User;
+use App\Models\Category;
+use App\Models\Currency;
+use App\Models\Language;
+use App\Models\Product;
+use App\Models\ProductRelative;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,13 +26,13 @@ class DatabaseSeeder extends Seeder
   {
 //         $this->call(UsersTableSeeder::class);
     //currency
-    \App\Currency::create(['symbol' => '$', 'slug' => 'dollar']);
-    \App\Currency::create(['symbol' => '€', 'slug' => 'euro']);
-    \App\Currency::create(['symbol' => '£', 'slug' => 'pound']);
+    Currency::create(['symbol' => '$', 'slug' => 'dollar']);
+    Currency::create(['symbol' => '€', 'slug' => 'euro']);
+    Currency::create(['symbol' => '£', 'slug' => 'pound']);
 
     //language
-    \App\Language::create(['slug' => 'Français']);
-    \App\Language::create(['slug' => 'English']);
+    Language::create(['slug' => 'Français']);
+    Language::create(['slug' => 'English']);
 
     User::create([
       'name' => 'Fengyu CHEN',
@@ -38,16 +43,16 @@ class DatabaseSeeder extends Seeder
       'isAdmin' => 1
     ]);
 
-    factory(\App\User::class, 30)->create();
+    factory(User::class, 30)->create();
 
-    factory(\App\Category::class, 10)->create();
-    factory(\App\Product::class, 1000)->create();
+    factory(Category::class, 10)->create();
+    factory(Product::class, 1000)->create();
 
-    $products = \App\Product::pluck('id')->toArray();
+    $products = Product::pluck('id')->toArray();
     foreach ($products as $product) {
       $ids = $this->faker->randomElements($products, 5);
       foreach ($ids as $id) {
-        \App\ProductRelative::create([
+        ProductRelative::create([
           'product_id' => $product,
           'relative_product_id' => $id
         ]);

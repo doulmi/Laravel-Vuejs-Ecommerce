@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App;
-use App\Product;
-use App\ProductRelative;
+use App\Models\Product;
+use App\Models\ProductRelative;
 use App\Repositories\ProductRepository;
 use Auth;
 use Illuminate\Http\Request;

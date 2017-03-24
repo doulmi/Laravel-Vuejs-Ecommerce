@@ -3,17 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App;
-use App\CollectProduct;
-use App\Like;
-use App\Comment;
-use App\Product;
-use App\ProductRelative;
+use App\Models\Comment;
+use App\Models\Product;
+use App\Models\ProductRelative;
 use App\Repositories\ProductRepository;
-use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-use Session;
 
 class ProductController extends Controller
 {

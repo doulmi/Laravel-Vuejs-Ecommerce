@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Cart;
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Repositories\CartRepository;
 use Illuminate\Http\Request;
 

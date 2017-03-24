@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
   static $password;
 
   return [
@@ -28,7 +28,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
   ];
 });
 
-$factory->define(App\Category::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Category::class, function (Faker\Generator $faker) {
   $name = $faker->name;
   return [
     'name_fr' => $name . '_fr',
@@ -39,7 +39,7 @@ $factory->define(App\Category::class, function (Faker\Generator $faker) {
   ];
 });
 
-$factory->define(App\Product::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Product::class, function (Faker\Generator $faker) {
   static $categories;
 
   $name = $faker->company;
@@ -50,7 +50,7 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
     'avatar' => 'https://res.cloudinary.com/hcu8jcnmr/image/upload/c_fit,w_600,h_600/rpzfghps4kx3qrgxy8oj.jpg',
     'price' => $faker->numberBetween(0.99, 99.99),
     'stock' => $faker->numberBetween(1, 20),
-    'category_id' => $faker->randomElement($categories ? $categories : $categories = \App\Category::pluck('id')->toArray()),
+    'category_id' => $faker->randomElement($categories ? $categories : $categories = \App\Models\Category::pluck('id')->toArray()),
     'images' => implode('||', [
       'https://res.cloudinary.com/hcu8jcnmr/image/upload/c_fit,w_600,h_600/evzorn1pgl5ink1y5wb3.jpg',
       'https://res.cloudinary.com/hcu8jcnmr/image/upload/c_fit,w_600,h_600/ne9bxhq3pu91olgj3nyo.jpg',
