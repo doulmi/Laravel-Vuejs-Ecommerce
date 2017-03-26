@@ -20,11 +20,11 @@
       </div>
     </div>
 
-    <div id="loadProgress">
+    <div id="loadProgress" v-if="isLoading">
       @include('components.LoadProgress')
     </div>
 
-    <div v-for="record in records" id="cartList">
+    <div v-for="record in records" id="cartList" v-else>
       <div class="media cart-media" :id="getId(record)">
         <div class="media-left cart-left">
           <a :href="getUrl(record.prodcut)">
@@ -42,7 +42,7 @@
                     @click.stop.prevent="deleteRecord(record)">@lang('labels.delete')</span>
             </div>
 
-            <div class="col-md-2 cart-price">@lang('labels.euro') @{{ record.product.price }}</div>
+            <div class="col-md-2 cart-price">@lang('labels.euro') @{{ numberFormat.format(record.product.price) }}</div>
             <div class="col-md-2">
               <input type="text" v-model="record.quantity" class="cart-quantity" @change="quantityChange(record)
               " @keydown="quantityKeydown"/>
@@ -62,15 +62,20 @@
       </div>
     </div>
 
-    <div class="load-more" v-show="isQuantityModified" @click.stop.prevent="updateQuantity">
-      @lang('labels.updateQuantity')
+    {{--<div class="load-more" v-show="isQuantityModified" @click.stop.prevent="updateQuantity">--}}
+    {{--@lang('labels.updateQuantity')--}}
+    {{--</div>--}}
+
+    <div class="top2 clearfix">
+      <div class="cart-price pull-right">
+        <p>
+          @lang('labels.euro') @{{ totalPrice }}
+        </p>
+      </div>
     </div>
 
-    <div class="top2">
-      <div class="col-md-2 cart-price">@lang('labels.euro') @{{ totalPrice }}</div>
-      <div class="col-md-3"><a href="#" @click.stop.prevent="validCommand"
+    <div class="pull-right"><a href="#" @click.stop.prevent="validCommand"
                                class="Button small Buy-btn">@lang('labels.passCommand')</a></div>
-    </div>
   </div>
   <input type="hidden" id="records" value="{{$records}}"/>
 @endsection
@@ -89,6 +94,7 @@
           auth: $('meta[name=auth]').attr('content'),
           isLoading: true,
           baseUrl: $('meta[name=baseUrl]').attr('content'),
+          numberFormat: null,
         },
 
         ready: function () {
@@ -96,45 +102,54 @@
           this.records.map(function (record) {
             record.origin_quantity = record.quantity;
           });
+
+          this.numberFormat = new Intl.NumberFormat(["fr-FR"], {
+            currency: $('meta[name=currency]').attr('content'),
+            minimumFractionDigits: 2,
+//            style: "currency",
+//            currency: "EURO",
+//            currencyDisplay: "symbol",
+//            maximumFractionDigit: 1
+          });
           this.isLoading = false;
         },
 
         computed: {
-          isQuantityModified: function () {
-            for (var i = 0; i < records.length; i++) {
-              record = records[i];
-              if (record.origin_quantity != record.quantity) return false;
-            }
-            return true;
-          },
+//          isQuantityModified: function () {
+//            for (var i = 0; i < records.length; i++) {
+//              record = records[i];
+//              if (record.origin_quantity != record.quantity) return false;
+//            }
+//            return true;
+//          },
 
           totalPrice: function () {
             var total = 0;
             this.records.map(function (record) {
               total += record.quantity * record.product.price;
             });
-            return total;
+            return this.numberFormat.format(total);
           }
         },
 
         methods: {
-          getId: function(record) {
+          getId: function (record) {
             return 'record-' + record.id;
           },
 
-          updateQuantity: function() {
-            var changedRecords = [];
-            this.records.map(function(record) {
-              if(record.quantity != record.origin_quantity) {
-                changedRecords.push(record);
-              }
-            })
-
-            var url = this.baseUrl + '/carts';
-            $.put(url, {records: changedRecords, _token: $('meta[name=token]').attr('content')}, function() {
-
-            });
-          },
+//          updateQuantity: function () {
+//            var changedRecords = [];
+//            this.records.map(function (record) {
+//              if (record.quantity != record.origin_quantity) {
+//                changedRecords.push(record);
+//              }
+//            })
+//
+//            var url = this.baseUrl + '/carts';
+//            $.put(url, {records: changedRecords, _token: $('meta[name=token]').attr('content')}, function () {
+//
+//            });
+//          },
 
           getUrl: function (product) {
             return this.baseUrl + '/products/' + product.slug;
@@ -182,6 +197,23 @@
             }
           },
 
+          updateQuantity: function(record) {
+            console.log('update', record);
+//TODO: show mask layer
+            var url = '';
+            $.post(url, {
+              id: record.id,
+              quantity: record.quantity,
+              _method: 'PUT',
+              _token: $('meta[name=token]').attr('content')
+            }, function(response) {
+              //TODO: hide mask layer
+            }).fail(function() {
+              //TODO: Show error
+              //TODO: hide mask layer
+            });
+          },
+
           quantityChange: function (record) {
             var num = parseInt(record.quantity);
             if (isNaN(num) || num < 1) {
@@ -191,13 +223,7 @@
               record.error = 'Stock Max: ' + record.product.stock;
             }
 
-            //TODO: show mask layer
-            $.put(url, {id: record.id, _token: $('meta[name=token]').attr('content')}, function(response) {
-              //TODO: hide mask layer
-            }).fail(function() {
-              //TODO: Show error
-              //TODO: hide mask layer
-            });
+            this.updateQuantity(record);
           }
         }
       });

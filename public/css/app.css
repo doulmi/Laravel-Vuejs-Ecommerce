@@ -17445,12 +17445,6 @@ button.close {
   height: inherit;
 }
 
-.cart-media .cart-price {
-  color: #2fdab8;
-  font-weight: bold;
-  font-size: 16px;
-}
-
 .cart-media .cart-heading {
   margin-top: 15px;
   color: #4A4A4A;
@@ -17458,6 +17452,12 @@ button.close {
 
 .text-small {
   font-size: 12px !important;
+}
+
+.cart-price {
+  color: #2fdab8;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .text-danger {

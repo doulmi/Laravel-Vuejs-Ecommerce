@@ -26,11 +26,19 @@ class CartController extends Controller
   }
 
   public function update(Request $request) {
-    $records = $request->get('records');
-    $productIds = [];
-    foreach($records as $record) {
-      $productIds[] = $record->product->id;
-    }
+    $id = $request->get('id');
+    $quantity = $request->get('quantity');
+
+    DB::transaction(function() use ($id, $quantity) {
+      $record = Cart::with('product')->findOrFail($id);
+
+    });
+
+
+//    $productIds = [];
+//    foreach($records as $record) {
+//      $productIds[] = $record->product->id;
+//    }
 
 //    DB::transaction(function() use ($records, $productIds) {
 //      $products = Product::whereIn('id', $productIds);

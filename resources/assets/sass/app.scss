@@ -2084,12 +2084,6 @@ button.close {
     }
   }
 
-  .cart-price {
-    color: $secondaryColor;
-    font-weight: bold;
-    font-size: 16px;
-  }
-
   .cart-heading {
     margin-top: 15px;
     color: $secondaryTextColor;
@@ -2100,9 +2094,16 @@ button.close {
   font-size: 12px !important;
 }
 
+.cart-price {
+  color: $secondaryColor;
+  font-weight: bold;
+  font-size: 16px;
+}
+
 .text-danger {
   color: $errorColor;
 }
+
 
 .text-primady {
   color: $secondaryColor;

@@ -8,6 +8,7 @@
   <meta name="path" content="{{Request::path()}}">
   <meta name="query" content="{{Request::getQueryString()}}">
   <meta name="lang" content="{{App::getLocale()}}">
+  <meta name="currency" content="EUR">
   <meta name="fullUrl" content="{{Request::fullUrl()}}">
   <meta name="token" content="{{csrf_token()}}">
   <meta name="baseUrl" content="{{url('')}}">
