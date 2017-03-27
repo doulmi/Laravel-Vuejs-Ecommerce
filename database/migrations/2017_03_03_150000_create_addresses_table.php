@@ -18,9 +18,13 @@ class CreateAddressesTable extends Migration
       $table->string('address');
       $table->string('name');
       $table->string('tel');  //包括区号
+      $table->string('postcode');
+      $table->string('city');
 
       $table->integer('user_id')->unsigned();
       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+      $table->boolean('is_default');
+
       $table->timestamps();
     });
   }

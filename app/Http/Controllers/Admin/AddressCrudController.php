@@ -21,7 +21,7 @@ class AddressCrudController extends CrudController
 		*/
         $this->crud->setModel("App\Models\Address");
         $this->crud->setRoute("admin/address");
-        $this->crud->setEntityNameStrings('address', 'addresss');
+        $this->crud->setEntityNameStrings('address', 'addresses');
 
         /*
 		|--------------------------------------------------------------------------

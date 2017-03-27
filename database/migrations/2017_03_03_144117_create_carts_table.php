@@ -23,7 +23,6 @@ class CreateCartsTable extends Migration
       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
       $table->integer('quantity');
-      $table->integer('quantity_available');
 
       $table->timestamps();
     });

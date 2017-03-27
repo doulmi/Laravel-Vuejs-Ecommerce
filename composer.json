@@ -9,7 +9,9 @@
         "backpack/base": "^0.7.16",
         "backpack/crud": "^3.2",
         "cartalyst/stripe-laravel": "5.0.*",
+        "cviebrock/eloquent-sluggable": "4.1",
         "laravel/framework": "5.3.*",
+        "intervention/image": "^2.3",
         "laravel/socialite": "^2.0"
     },
     "require-dev": {

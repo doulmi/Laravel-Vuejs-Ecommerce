@@ -21,7 +21,7 @@ class CategoryCrudController extends CrudController
 		*/
         $this->crud->setModel("App\Models\Category");
         $this->crud->setRoute("admin/category");
-        $this->crud->setEntityNameStrings('category', 'categorys');
+        $this->crud->setEntityNameStrings('category', 'categories');
 
         /*
 		|--------------------------------------------------------------------------

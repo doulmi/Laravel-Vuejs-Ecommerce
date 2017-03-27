@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
       $table->string('address');
-      $table->string('state');      //0: 提交订单, 1: 商品出库, 2: 等待收货，3: 完成, 4: 待退款, 5: 已退货
+      $table->string('state');      //0: 待提交, 1: 提交订单, 2: 商品出库, 3: 等待收货，4: 完成, 5: 待退款, 6: 已退货
       $table->string('pay_state');  //0: 代付款, 2: 已付款, 3: 代退款， 4: 退款成功，5：退款失败
 
       $table->float('price');

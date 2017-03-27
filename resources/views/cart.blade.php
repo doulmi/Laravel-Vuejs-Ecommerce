@@ -1,82 +1,86 @@
 @extends('app')
 
 @section('content')
-  <div class="container carts" id="container">
-    <div class="cart-header">@lang('labels.yourCart')</div>
-    <div class="media cart-media empty">
-      <div class="media-left cart-left">
-        <a href="#">
-          <i class="media-object cart-avatar empty"></i>
-        </a>
-      </div>
-      <div class="media-body">
-        <div class="row cart-heading">
-          <div class="col-md-8">
-            <h4 class="media-heading "></h4>
-          </div>
-          <div class="col-md-2">@lang('labels.price')</div>
-          <div class="col-md-2">@lang('labels.quantity')</div>
-        </div>
-      </div>
-    </div>
+  <form action="{{route('carts.pass')}}">
 
-    <div id="loadProgress" v-if="isLoading">
-      @include('components.LoadProgress')
-    </div>
-
-    <div v-for="record in records" id="cartList" v-else>
-      <div class="media cart-media" :id="getId(record)">
+    <div class="container carts" id="container">
+      <div class="cart-header">@lang('labels.yourCart')</div>
+      <div class="media cart-media empty">
         <div class="media-left cart-left">
-          <a :href="getUrl(record.prodcut)">
-            <img :src="record.product.avatar" alt="" class="media-object cart-avatar">
+          <a href="#">
+            <i class="media-object cart-avatar empty"></i>
           </a>
         </div>
         <div class="media-body">
           <div class="row cart-heading">
             <div class="col-md-8">
-              <h4 class="media-heading">@{{record.product.name}}</h4>
-              <div class="text-small text-danger"
-                   v-if="record.product.stock > {{config('config.lowStock')}}">
-              </div>
-              <span class="pointer link text-small"
-                    @click.stop.prevent="deleteRecord(record)">@lang('labels.delete')</span>
+              <h4 class="media-heading "></h4>
             </div>
+            <div class="col-md-2">@lang('labels.price')</div>
+            <div class="col-md-2">@lang('labels.quantity')</div>
+          </div>
+        </div>
+      </div>
 
-            <div class="col-md-2 cart-price">@lang('labels.euro') @{{ numberFormat.format(record.product.price) }}</div>
-            <div class="col-md-2">
-              <input type="text" v-model="record.quantity" class="cart-quantity" @change="quantityChange(record)
+      <div id="loadProgress" v-if="isLoading">
+        @include('components.LoadProgress')
+      </div>
+
+      <div v-for="record in records" id="cartList" v-else>
+        <div class="media cart-media" :id="getId(record)">
+          <div class="media-left cart-left">
+            <a :href="getUrl(record.prodcut)">
+              <img :src="record.product.avatar" alt="" class="media-object cart-avatar">
+            </a>
+          </div>
+          <div class="media-body">
+            <div class="row cart-heading">
+              <div class="col-md-8">
+                <h4 class="media-heading">@{{record.product.name}}</h4>
+                <div class="text-small text-danger"
+                     v-if="record.product.stock > {{config('config.lowStock')}}">
+                </div>
+                <span class="pointer link text-small"
+                      @click.stop.prevent="deleteRecord(record)">@lang('labels.delete')</span>
+              </div>
+
+              <div
+                class="col-md-2 cart-price">@lang('labels.euro') @{{ numberFormat.format(record.product.price) }}</div>
+              <div class="col-md-2">
+                <input type="text" v-model="record.quantity" class="cart-quantity" @change="quantityChange(record)
               " @keydown="quantityKeydown"/>
-              <button class="Quantity-btn small increment" id="increment"
-                      @click.stop.prevent="increment(record)">+
-              </button>
-              <button class="Quantity-btn small decrement" id="decrement"
-                      @click.stop.prevent="decrement(record)">-
-              </button>
+                <button class="Quantity-btn small increment" id="increment"
+                        @click.stop.prevent="increment(record)">+
+                </button>
+                <button class="Quantity-btn small decrement" id="decrement"
+                        @click.stop.prevent="decrement(record)">-
+                </button>
 
-              <div class="text-danger">
-                @{{record.error}}
+                <div class="text-danger">
+                  @{{record.error}}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    {{--<div class="load-more" v-show="isQuantityModified" @click.stop.prevent="updateQuantity">--}}
-    {{--@lang('labels.updateQuantity')--}}
-    {{--</div>--}}
+      {{--<div class="load-more" v-show="isQuantityModified" @click.stop.prevent="updateQuantity">--}}
+      {{--@lang('labels.updateQuantity')--}}
+      {{--</div>--}}
 
-    <div class="top2 clearfix">
-      <div class="cart-price pull-right">
-        <p>
-          @lang('labels.euro') @{{ totalPrice }}
-        </p>
+      <div class="top2 clearfix">
+        <div class="cart-price pull-right">
+          <p>
+            @lang('labels.euro') @{{ totalPrice }}
+          </p>
+        </div>
       </div>
+      <div class="pull-right"><a href="#" @click.stop.prevent="validCommand"
+                                 class="Button small Buy-btn">@lang('labels.passCommand')</a></div>
     </div>
-
-    <div class="pull-right"><a href="#" @click.stop.prevent="validCommand"
-                               class="Button small Buy-btn">@lang('labels.passCommand')</a></div>
-  </div>
+    <input type="hidden" id="records_id" v-model="recordIds">
+  </form>
   <input type="hidden" id="records" value="{{$records}}"/>
 @endsection
 
@@ -95,13 +99,17 @@
           isLoading: true,
           baseUrl: $('meta[name=baseUrl]').attr('content'),
           numberFormat: null,
+          recordIds: [],
         },
 
         ready: function () {
           this.records = JSON.parse($('#records').val());
           this.records.map(function (record) {
-            record.origin_quantity = record.quantity;
-          });
+//            record.origin_quantity = record.quantity;
+            this.recordIds.push(record.id);
+          }.bind(this));
+
+          this.recordIds = this.recordIds.join(',');
 
           this.numberFormat = new Intl.NumberFormat(["fr-FR"], {
             currency: $('meta[name=currency]').attr('content'),
@@ -197,18 +205,19 @@
             }
           },
 
-          updateQuantity: function(record) {
+          updateQuantity: function (record) {
             console.log('update', record);
-//TODO: show mask layer
+            //TODO: show mask layer
             var url = '';
             $.post(url, {
               id: record.id,
               quantity: record.quantity,
               _method: 'PUT',
               _token: $('meta[name=token]').attr('content')
-            }, function(response) {
+            }, function (response) {
               //TODO: hide mask layer
-            }).fail(function() {
+            }).fail(function (error) {
+              console.log(error);
               //TODO: Show error
               //TODO: hide mask layer
             });
@@ -224,7 +233,7 @@
             }
 
             this.updateQuantity(record);
-          }
+          },
         }
       });
     });

@@ -169,6 +169,7 @@ return [
     Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
     Backpack\Base\BaseServiceProvider::class,
     Backpack\CRUD\CrudServiceProvider::class,
+    Cviebrock\EloquentSluggable\ServiceProvider::class,
 
     /*
      * Application Service Providers...
