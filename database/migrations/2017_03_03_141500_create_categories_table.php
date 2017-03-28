@@ -18,8 +18,9 @@ class CreateCategoriesTable extends Migration
 
       $table->string('name_fr');
       $table->string('name_en');
-      $table->string('avatar');
       $table->boolean('active')->default(true);
+
+      $table->string('avatar');
 
       $table->string('slug')->unique()->index();
       $table->timestamps();

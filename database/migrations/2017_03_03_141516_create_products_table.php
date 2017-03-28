@@ -19,23 +19,24 @@ class CreateProductsTable extends Migration
       $table->string('name_fr');
       $table->string('name_en');
 
-      $table->boolean('active')->default(true);
-      $table->string('slug')->unique()->index();
-      $table->float('price');
-      $table->float('sale_price');
-      $table->boolean('on_sale');
-      $table->integer('stock');
-
-      $table->string('images'); //split by ||
-      $table->string('avatar'); //main avatar
-
       $table->text('description');  //markdown
 
-      $table->integer('view');
-      $table->integer('lastMonthView');
+      $table->string('images')->nullabel(); //split by ||
+      $table->string('avatar'); //main avatar
 
       $table->integer('category_id')->unsigned();
       $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+
+      $table->boolean('active')->default(true);
+      $table->string('slug')->unique()->index();
+      $table->float('price');
+      $table->integer('stock');
+
+      $table->boolean('on_sale');
+      $table->float('sale_price')->nullable();
+
+      $table->integer('view');
+      $table->integer('lastMonthView');
 
       $table->timestamps();
     });

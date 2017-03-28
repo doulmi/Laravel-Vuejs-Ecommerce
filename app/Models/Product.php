@@ -88,13 +88,13 @@ class Product extends Model
   public function setAvatarAttribute($value)
   {
     $attribute_name = "avatar";
-    $disk = "products";
-    $destination_path = public_path("uploads/products");
+    $disk = env('FILE_SYSTEM');
+    $destination_path = "uploads/products";
 
     // if the image was erased
     if ($value == null) {
       // delete the image from disk
-      \Storage::disk($disk)->delete($this->image);
+      \Storage::disk($disk)->delete($this->avatar);
 
       // set null in the database column
       $this->attributes[$attribute_name] = null;
@@ -116,8 +116,8 @@ class Product extends Model
   public function setImagesAttribute($value)
   {
     $attribute_name = "images";
-    $disk = "products";
-    $destination_path = public_path("uploads/products");
+    $disk = env('FILE_SYSTEM');
+    $destination_path = "uploads/products";
 
     $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
   }

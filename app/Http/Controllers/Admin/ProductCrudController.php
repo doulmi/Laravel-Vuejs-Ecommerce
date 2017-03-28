@@ -39,13 +39,19 @@ class ProductCrudController extends CrudController
     ]);
 
     $this->crud->addField([
+      'name' => 'on_sale',
+      'label' => trans('admin.on_sale'),
+      'type' => 'checkbox'
+    ]);
+
+    $this->crud->addField([
       'name' => 'description',
       'labels' => trans('admin.description'),
       'type' => 'summernote'
     ]);
 
     $this->crud->addField([ // image
-      'label' => "Avatar",
+      'label' => trans('admin.avatar'),
       'name' => "avatar",
       'type' => 'image',
       'upload' => true,
@@ -53,15 +59,24 @@ class ProductCrudController extends CrudController
       'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
     ]);
 
-    $this->crud->addField([   // Upload
-      'name' => 'images',
-      'label' => 'Other Images',
-      'type' => 'upload_multiple',
-      'upload' => true,
-      'disk' => 'uploads' // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+//    $this->crud->addField([   // Upload
+//      'name' => 'images',
+//      'label' => 'Other Images',
+//      'type' => 'upload_multiple',
+//      'upload' => true,
+//      'disk' => 'uploads' // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+//    ]);
+
+    $this->crud->addField([  // Select
+      'label' => "Category",
+      'type' => 'select2',
+      'name' => 'category_id', // the db column for the foreign key
+      'entity' => 'Category', // the method that defines the relationship in your Model
+      'attribute' => 'name_fr', // foreign key attribute that is shown to user
+      'model' => "App\Models\Category" // foreign key model
     ]);
 
-
+    $this->crud->removeFields(['view', 'lastMonthView', 'slug', 'images']); // remove an array of columns from the stack
     // $this->crud->addField($options, 'update/create/both');
     // $this->crud->addFields($array_of_arrays, 'update/create/both');
     // $this->crud->removeField('name', 'update/create/both');
@@ -105,7 +120,7 @@ class ProductCrudController extends CrudController
     // Please note the drawbacks of this though:
     // - 1-n and n-n columns are not searchable
     // - date and datetime columns won't be sortable anymore
-    // $this->crud->enableAjaxTable();
+    $this->crud->enableAjaxTable();
 
     // ------ DATATABLE EXPORT BUTTONS
     // Show export to PDF, CSV, XLS and Print buttons on the table view.
