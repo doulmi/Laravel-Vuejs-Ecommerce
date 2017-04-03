@@ -64,7 +64,7 @@
               <ul class="dropdown-menu" role="menu">
                 @if(Auth::user()->isAdmin)
                   <li>
-                    <a href="{{route('admin.index')}}">
+                    <a href="{{url('admin')}}">
                       @lang('labels.adminPanel')
                     </a>
                   </li>
@@ -73,6 +73,12 @@
                   <a href="{{route('profile', Auth::id())}}">
                     <div class="Text-Black">{{ title_case(Auth::user()->name) }}</div>
                     @lang('labels.profile')
+                  </a>
+                </li>
+
+                <li>
+                  <a href="{{route('orders.index')}}">
+                    @lang('labels.myOrders')
                   </a>
                 </li>
 

@@ -42,7 +42,14 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/cart', 'CartController@index')->name('carts.index');
   Route::put('/cart', 'CartController@update')->name('carts.update');
   Route::post('/cart', 'CartController@passCommand')->name('carts.pass');
-//  Route::put('/cart', 'CartController@update')->name('carts.update');
+
+  Route::get('/address', 'AddressController@index')->name('address.index');
+  Route::post('/address', 'AddressController@store')->name('address.store');
+  Route::put('/address/{id}', 'AddressController@update')->name('address.update');
+
+  Route::get('/orders', 'OrderController@index')->name('orders.index');
+
+  Route::get('deliveries', 'DeliveryController@index')->name('delivery.index');
 });
 
 Auth::routes();
@@ -51,7 +58,6 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
 //  Route::get('/', 'AdminController@dashboard');
 //  Route::get('/dashboard', 'AdminController@dashboard');
-
   CRUD::resource('language', 'LanguageCrudController');
   CRUD::resource('currency', 'CurrencyCrudController');
   CRUD::resource('user', 'UserCrudController');

@@ -47,7 +47,7 @@ return [
   //info
   'card' => [
     'number' => 'Numéro de carte',
-    'holder' =>'Nom sur la carte',
+    'holder' => 'Nom sur la carte',
     'CVC' => 'CVC',
     'expiration' => 'Expiration',
   ],
@@ -61,5 +61,22 @@ return [
   'delete' => 'Supprimer',
   'passCommand' => 'Passer la commande',
   'updateQuantity' => 'Mise à jour',
+  'myOrders' => 'Mes commandes',
+
+  'address' => [
+    'selectAddress' => 'Sélectionner une adresse d\'expédition',
+    'selectAddressH2' => 'Sélectionnez ci-dessous l\'adresse de votre choix en cliquant sur le bouton « Envoyer à cette adresse » correspondant ou entrez une <a href="#newAddress">nouvelle adresse.</a> ',
+    'addAddress' => 'Ajouter une nouvelle adresse',
+    'names' => 'Nom et prénom',
+    'address' => 'Address ligne 1',
+    'address2' => 'Adresse ligne 2',
+    'city' => 'Ville',
+    'postcode' => 'Code postal',
+    'country' => 'Pays',
+    'tel' => 'Numéro de téléphone',
+    'sendToThisAddress' => 'Envoyer à cette adresse',
+  ],
+
+  'modify' => 'Modifier',
 ];
 

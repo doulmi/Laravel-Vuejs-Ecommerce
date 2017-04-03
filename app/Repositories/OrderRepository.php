@@ -4,14 +4,22 @@ namespace App\Repositories;
 
 use Illuminate\Http\Request;
 
-class OrderRepository {
+class OrderRepository
+{
   private $request;
+
   public function __construct(Request $request)
   {
     $this->request = $request;
   }
 
-  public function create($orderIds) {
+  public function create($orderIds, $userId)
+  {
+
+  }
+
+  public function index($userId)
+  {
 
   }
 }

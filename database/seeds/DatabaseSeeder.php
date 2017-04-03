@@ -24,7 +24,6 @@ class DatabaseSeeder extends Seeder
    */
   public function run()
   {
-//         $this->call(UsersTableSeeder::class);
     //currency
     Currency::create(['symbol' => '$', 'slug' => 'dollar']);
     Currency::create(['symbol' => '€', 'slug' => 'euro']);
@@ -40,6 +39,8 @@ class DatabaseSeeder extends Seeder
       'email' => 'doulmi@126.com',
       'confirmation_code' => str_random(64),
       'password' => bcrypt('123456'),
+      'language_id' => 1,
+      'currency_id' => 1,
       'isAdmin' => 1
     ]);
 
