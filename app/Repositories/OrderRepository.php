@@ -13,7 +13,7 @@ class OrderRepository
     $this->request = $request;
   }
 
-  public function create($orderIds, $userId)
+  public function create($userId)
   {
 
   }

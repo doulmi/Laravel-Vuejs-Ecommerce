@@ -7,28 +7,22 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Repositories\CartRepository;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+  private $cartRepo;
+  public function __construct(CartRepository $repo) {
+    $this->cartRepo = $repo;
+  }
+
   public function index()
   {
-    $records = Cart::with('product')->where('user_id', Auth::id())->get();
     $lang = App::getLocale();
-
-    foreach ($records as $record) {
-      if ($lang == 'en') {
-        $record->product->name = $record->product->name_en;
-      } else {
-        $record->product->name = $record->product->name_fr;
-      }
-      if ($record->quantity > $record->product->stock) {
-        $record->quantity = $record->product->stock;
-        $record->error = 'stock_changed';
-      }
-    }
+    $records = $this->cartRepo->index(Auth::id(), $lang);
     $records = $records->toJson();
     return view('cart', compact('records'));
   }
